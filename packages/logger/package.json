@@ -1,0 +1,15 @@
+{
+  "name": "@raptor/logger",
+  "author": {
+    "name": "Raptor Systems SpA",
+    "email": "raptor@raptorsystems.cl"
+  },
+  "main": "src",
+  "dependencies": {
+    "pino": "^6.13.2",
+    "pino-pretty": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/pino": "^6.3.11"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    /* Project Options */
+    "allowJs": true,
+    "declaration": false,
+    "importHelpers": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "module": "CommonJS",
+    "rootDir": ".",
+    "sourceMap": true,
+    "target": "ES2019", // ? https://github.com/TypeStrong/ts-loader/issues/1061#issuecomment-609613807
+    "outDir": "dist",
+
+    /* Linter Checks */
+    "noUnusedLocals": true,
+
+    /* Strict Checks */
+    "noImplicitAny": false,
+    "strict": true,
+
+    /* Module Resolution */
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "typeRoots": ["node_modules/@types"],
+
+    /* Experimental */
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+
+    /* Advanced */
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+
+    /* Paths */
+    "paths": {}
+  },
+  "exclude": ["node_modules", "tmp"]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "raptor-libs",
+  "author": {
+    "name": "Raptor Systems SpA",
+    "email": "raptor@raptorsystems.cl"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": "^14"
+  },
+  "devDependencies": {
+    "@raptor/eslint-config": "workspace:*"
+  },
+  "packageManager": "yarn@3.0.2"
+}

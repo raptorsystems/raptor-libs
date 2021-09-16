@@ -1,0 +1,10 @@
+{
+  "name": "raptor-yarn-plugins",
+  "author": {
+    "name": "Raptor Systems SpA",
+    "email": "raptor@raptorsystems.cl"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

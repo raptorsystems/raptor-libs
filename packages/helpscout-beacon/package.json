@@ -1,0 +1,8 @@
+{
+  "name": "@raptor/helpscout-beacon",
+  "author": {
+    "name": "Raptor Systems SpA",
+    "email": "raptor@raptorsystems.cl"
+  },
+  "main": "src"
+}

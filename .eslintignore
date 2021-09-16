@@ -1,0 +1,6 @@
+lib
+dist
+generated
+build
+.nuxt
+sw.*
