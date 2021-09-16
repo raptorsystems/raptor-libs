@@ -319,7 +319,7 @@ export interface Beacon {
       email?: string
       subject?: string
       text?: string
-      fields?: { id: string; value: string | number }[]
+      fields?: { id: number; value: string | number }[]
     },
   ): void
 
