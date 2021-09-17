@@ -1,7 +1,9 @@
 import * as prisma from '@prisma/client'
 import * as relay from 'graphql-relay'
 
-export type Decimal = prisma.Prisma.Decimal.Value
+export type Decimal = prisma.Prisma.Decimal
+
+export type DecimalValue = prisma.Prisma.Decimal.Value
 
 // ? nexus fails to find this types
 export type QueryMode = prisma.Prisma.QueryMode
