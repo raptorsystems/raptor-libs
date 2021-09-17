@@ -28,7 +28,7 @@ export const axiosProgressPlugin: Plugin = ({ $axios }) => {
     currentRequests++
 
     if (currentRequests === 1) {
-      $loading().start()
+      $loading().start?.()
     }
   })
 
@@ -37,7 +37,7 @@ export const axiosProgressPlugin: Plugin = ({ $axios }) => {
 
     if (currentRequests <= 0) {
       currentRequests = 0
-      $loading().finish()
+      $loading().finish?.()
     }
   })
 
@@ -47,12 +47,12 @@ export const axiosProgressPlugin: Plugin = ({ $axios }) => {
     if (Axios.isCancel(error)) {
       if (currentRequests <= 0) {
         currentRequests = 0
-        $loading().finish()
+        $loading().finish?.()
       }
       return
     }
 
     $loading().fail?.()
-    $loading().finish()
+    $loading().finish?.()
   })
 }
