@@ -30,7 +30,7 @@ export const Auth0UserObjectType = objectType({
     t.string('picture')
     t.string('name')
     t.string('nickname')
-    t.string('multifactor')
+    t.list.nonNull.string('multifactor')
     t.string('last_ip')
     t.string('last_login')
     t.string('last_password_reset')
