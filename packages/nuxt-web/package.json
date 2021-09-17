@@ -9,10 +9,6 @@
     "@raptor/helpscout-beacon": "workspace:*",
     "vuex": "^3.6.2"
   },
-  "peerDependencies": {
-    "@nuxtjs/color-mode": "^2.1.1",
-    "@nuxtjs/vuetify": "^1.12.1"
-  },
   "devDependencies": {
     "@nuxt/types": "2.15.8",
     "@raptor/eslint-config-nuxt": "workspace:*",
