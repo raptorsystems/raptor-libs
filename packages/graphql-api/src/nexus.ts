@@ -47,6 +47,14 @@ export const makeNexusSchema = (
               module: typesModule,
               alias: 'types',
             },
+            {
+              module: '@raptor/graphql-api/src/types',
+              alias: '_api',
+            },
+            {
+              module: '@raptor/graphql-prisma/src/types',
+              alias: '_prisma',
+            },
           ],
         },
       },
