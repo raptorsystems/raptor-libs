@@ -18,8 +18,14 @@ const contextErrorHandler: FastifyPluginCallback = (instance, _opts, done) => {
   const defaultErrorHandler = instance.errorHandler
 
   instance.setErrorHandler((error, request, reply) => {
-    context.sentry.captureException(error)
-    defaultErrorHandler(error, request, reply)
+    try {
+      context.sentry.captureException(error)
+    } catch (error_) {
+      Sentry.captureException(error)
+      Sentry.captureException(error_)
+    } finally {
+      defaultErrorHandler(error, request, reply)
+    }
   })
 
   done()
