@@ -1,14 +1,12 @@
-import type { Context } from '@nuxt/types'
-import type { ApolloLink } from 'apollo-link'
 import { createHttpLink as createLink } from 'apollo-link-http'
+import type { CreateApolloLink } from './types'
 import { axiosFetch } from './utils/axios'
 
-export const createHttpLink = (context: Context): ApolloLink => {
+export const createHttpLink: CreateApolloLink = (context, ctxHeaders) => {
   const uri = context.$config.apiURL as string
   if (!uri) throw new Error('Missing config: `apiURL`')
 
-  return createLink({
-    uri,
-    fetch: axiosFetch(context),
-  })
+  const fetch = axiosFetch(context, ctxHeaders)
+
+  return createLink({ uri, fetch })
 }

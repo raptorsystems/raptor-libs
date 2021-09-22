@@ -1,11 +1,14 @@
 import type { Context } from '@nuxt/types'
 import type { AxiosRequestConfig, Method } from 'axios'
 import axios from 'axios'
-import { headers } from './headers'
+import { ContextHeaders } from '..'
 
 // Ref: https://github.com/lifeomic/axios-fetch
 export const axiosFetch =
-  (context: Context): WindowOrWorkerGlobalScope['fetch'] =>
+  (
+    context: Context,
+    ctxHeaders?: ContextHeaders,
+  ): WindowOrWorkerGlobalScope['fetch'] =>
   async (input, init) => {
     const config: AxiosRequestConfig = {
       url: input as string,
@@ -14,7 +17,7 @@ export const axiosFetch =
         typeof init?.body === 'undefined' || init?.body instanceof FormData
           ? init?.body
           : String(init.body),
-      headers: headers(context, init?.headers),
+      headers: { ...parseHeaders(init?.headers), ...ctxHeaders?.(context) },
       responseType: 'arraybuffer',
     }
 
@@ -30,3 +33,15 @@ export const axiosFetch =
       headers: new Headers(response?.headers),
     })
   }
+
+const parseHeaders = (headers?: HeadersInit): Record<string, string> => {
+  if (!headers) {
+    return {}
+  } else if (headers instanceof Headers) {
+    return Object.fromEntries(headers.entries())
+  } else if (Array.isArray(headers)) {
+    return Object.fromEntries(headers) as Record<string, string>
+  } else {
+    return headers
+  }
+}
