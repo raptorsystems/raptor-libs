@@ -1,14 +1,7 @@
 // Ref: Redwood Logger
 // https://github.com/redwoodjs/redwood/blob/main/packages/api/src/logger/index.ts
 
-import pino, {
-  BaseLogger,
-  DestinationStream,
-  LevelWithSilent,
-  LoggerOptions,
-  PrettyOptions,
-  redactOptions,
-} from 'pino'
+import pino from 'pino'
 import * as prettyPrint from 'pino-pretty'
 
 export type LogLevel = 'info' | 'query' | 'warn' | 'error'
@@ -62,7 +55,7 @@ export const prettifier = prettyPrint
  *      censor (String): Optional. A value to overwrite key which are to be redacted. Default: '[Redacted]'
  *      remove (Boolean): Optional. Instead of censoring the value, remove both the key and the value. Default: false
  */
-export const redactionsList: string[] | redactOptions = [
+export const redactionsList: string[] | pino.redactOptions = [
   'access_token',
   'accessToken',
   'DATABASE_URL',
@@ -99,7 +92,7 @@ export const redactionsList: string[] | redactOptions = [
  * @default 'silent' in Test
  *
  */
-export const logLevel: LevelWithSilent | string = (() => {
+export const logLevel: pino.LevelWithSilent | string = (() => {
   if (typeof process.env.LOG_LEVEL !== 'undefined') {
     return process.env.LOG_LEVEL
   } else if (isProduction) {
@@ -123,7 +116,7 @@ export const logLevel: LevelWithSilent | string = (() => {
  * - Use a shorted log message that omits server name
  * - Humanize time in GMT
  * */
-export const defaultPrettyPrintOptions: PrettyOptions = {
+export const defaultPrettyPrintOptions: pino.PrettyOptions = {
   colorize: true,
   ignore: 'hostname,pid',
   levelFirst: true,
@@ -152,7 +145,7 @@ export const defaultPrettyPrintOptions: PrettyOptions = {
  * @see {@link https://github.com/pinojs/pino/blob/master/docs/api.md}
  * @see {@link https://github.com/pinojs/pino-pretty}
  */
-export const defaultLoggerOptions: LoggerOptions = {
+export const defaultLoggerOptions: pino.LoggerOptions = {
   prettyPrint: isPretty && defaultPrettyPrintOptions,
   prettifier: isPretty && prettifier,
   level: logLevel,
@@ -170,8 +163,8 @@ export const defaultLoggerOptions: LoggerOptions = {
  * @property {boolean} showConfig - Display logger configuration on initialization
  */
 export interface CreateLoggerOptions {
-  options?: LoggerOptions
-  destination?: string | DestinationStream
+  options?: pino.LoggerOptions
+  destination?: string | pino.DestinationStream
   showConfig?: boolean
 }
 
@@ -196,7 +189,7 @@ export const createLogger = ({
   options,
   destination,
   showConfig = false,
-}: CreateLoggerOptions): BaseLogger => {
+}: CreateLoggerOptions): pino.BaseLogger => {
   const hasDestination = typeof destination !== 'undefined'
   const isFile = hasDestination && typeof destination === 'string'
   const isStream = hasDestination && !isFile
@@ -206,8 +199,8 @@ export const createLogger = ({
   if (isPretty && options?.prettyPrint) {
     const prettyOptions = {
       prettyPrint: {
-        ...(defaultLoggerOptions.prettyPrint as PrettyOptions),
-        ...(options.prettyPrint as PrettyOptions),
+        ...(defaultLoggerOptions.prettyPrint as pino.PrettyOptions),
+        ...(options.prettyPrint as pino.PrettyOptions),
       },
     }
 
@@ -242,7 +235,7 @@ export const createLogger = ({
       )
     }
 
-    return pino(options, stream as DestinationStream)
+    return pino(options, stream as pino.DestinationStream)
   } else {
     if (isStream && isDevelopment && !isTest) {
       console.warn(
@@ -256,6 +249,6 @@ export const createLogger = ({
       )
     }
 
-    return pino(options, stream as DestinationStream)
+    return pino(options, stream as pino.DestinationStream)
   }
 }
