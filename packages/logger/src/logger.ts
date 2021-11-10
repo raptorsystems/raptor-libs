@@ -1,23 +1,49 @@
 // Ref: Redwood Logger
 // https://github.com/redwoodjs/redwood/blob/main/packages/api/src/logger/index.ts
 
+import type P from 'pino'
 import pino from 'pino'
 import * as prettyPrint from 'pino-pretty'
 
+/**
+ * Types from Pino
+ * @see https://github.com/pinojs/pino/blob/master/pino.d.ts
+ */
+export type Logger = P.Logger
+export type BaseLogger = P.BaseLogger
+export type DestinationStream = P.DestinationStream
+export type LevelWithSilent = P.LevelWithSilent
+export type LoggerOptions = P.LoggerOptions
+export type LoggerExtras = P.LoggerExtras
+export type PrettyOptions = P.PrettyOptions
 export type LogLevel = 'info' | 'query' | 'warn' | 'error'
+
+type LogDefinition = {
+  level: LogLevel
+  emit: 'stdout' | 'event'
+}
 
 /**
  * Determines if log environment is development
+ *
+ * @type {boolean}
+ *
  */
 export const isDevelopment = process.env.NODE_ENV === 'development'
 
 /**
  * Determines if log environment is test
+ *
+ * @type {boolean}
+ *
  */
 export const isTest = process.env.NODE_ENV === 'test'
 
 /**
  * Determines if log environment is production by checking if not development
+ *
+ * @type {boolean}
+ *
  */
 export const isProduction = !isDevelopment && !isTest
 
@@ -47,26 +73,39 @@ export const prettifier = prettyPrint
  *
  * As an array, the redact option specifies paths that should have their values redacted from any log output.
  *
- * Each path must be a string using a syntax which corresponds to JavaScript dot and bracket notation.
- *
- * If an object is supplied, three options can be specified:
- *
- *      paths (String[]): Required. An array of paths
- *      censor (String): Optional. A value to overwrite key which are to be redacted. Default: '[Redacted]'
- *      remove (Boolean): Optional. Instead of censoring the value, remove both the key and the value. Default: false
  */
-export const redactionsList: string[] | pino.redactOptions = [
+export const redactionsList: string[] = [
   'access_token',
+  'data.access_token',
+  'data.*.access_token',
+  'data.*.accessToken',
   'accessToken',
+  'data.accessToken',
   'DATABASE_URL',
+  'data.*.email',
+  'data.email',
   'email',
   'event.headers.authorization',
+  'data.hashedPassword',
+  'data.*.hashedPassword',
+  'hashedPassword',
   'host',
   'jwt',
+  'data.jwt',
+  'data.*.jwt',
   'JWT',
+  'data.JWT',
+  'data.*.JWT',
   'password',
+  'data.password',
+  'data.*.password',
   'params',
+  'data.salt',
+  'data.*.salt',
+  'salt',
   'secret',
+  'data.secret',
+  'data.*.secret',
 ]
 
 /**
@@ -92,7 +131,7 @@ export const redactionsList: string[] | pino.redactOptions = [
  * @default 'silent' in Test
  *
  */
-export const logLevel: pino.LevelWithSilent | string = (() => {
+export const logLevel: LevelWithSilent | string = (() => {
   if (typeof process.env.LOG_LEVEL !== 'undefined') {
     return process.env.LOG_LEVEL
   } else if (isProduction) {
@@ -116,7 +155,7 @@ export const logLevel: pino.LevelWithSilent | string = (() => {
  * - Use a shorted log message that omits server name
  * - Humanize time in GMT
  * */
-export const defaultPrettyPrintOptions: pino.PrettyOptions = {
+export const defaultPrettyPrintOptions: PrettyOptions = {
   colorize: true,
   ignore: 'hostname,pid',
   levelFirst: true,
@@ -140,12 +179,20 @@ export const defaultPrettyPrintOptions: pino.PrettyOptions = {
  *   Or set via LOG_LEVEL environment variable
  * - Redact the host and other keys via a set redactionList
  *
+ * Each path must be a string using a syntax which corresponds to JavaScript dot and bracket notation.
+ *
+ * If an object is supplied, three options can be specified:
+ *
+ *      paths (String[]): Required. An array of paths
+ *      censor (String): Optional. A value to overwrite key which are to be redacted. Default: '[Redacted]'
+ *      remove (Boolean): Optional. Instead of censoring the value, remove both the key and the value. Default: false
+ *
  * Pretty Printing Defaults defined in defaultPrettyPrintOptions
  *
  * @see {@link https://github.com/pinojs/pino/blob/master/docs/api.md}
  * @see {@link https://github.com/pinojs/pino-pretty}
  */
-export const defaultLoggerOptions: pino.LoggerOptions = {
+export const defaultLoggerOptions: LoggerOptions = {
   prettyPrint: isPretty && defaultPrettyPrintOptions,
   prettifier: isPretty && prettifier,
   level: logLevel,
@@ -163,8 +210,8 @@ export const defaultLoggerOptions: pino.LoggerOptions = {
  * @property {boolean} showConfig - Display logger configuration on initialization
  */
 export interface CreateLoggerOptions {
-  options?: pino.LoggerOptions
-  destination?: string | pino.DestinationStream
+  options?: LoggerOptions
+  destination?: string | DestinationStream
   showConfig?: boolean
 }
 
@@ -183,13 +230,13 @@ export interface CreateLoggerOptions {
  * // Create the logger to log to a file
  * createLogger({ destination: { 'var/logs/redwood-api.log' } })
  *
- * @return {BaseLogger} - The configured logger
+ * @return {Logger} - The configured logger
  */
 export const createLogger = ({
   options,
   destination,
   showConfig = false,
-}: CreateLoggerOptions): pino.BaseLogger => {
+}: CreateLoggerOptions): Logger => {
   const hasDestination = typeof destination !== 'undefined'
   const isFile = hasDestination && typeof destination === 'string'
   const isStream = hasDestination && !isFile
@@ -199,8 +246,8 @@ export const createLogger = ({
   if (isPretty && options?.prettyPrint) {
     const prettyOptions = {
       prettyPrint: {
-        ...(defaultLoggerOptions.prettyPrint as pino.PrettyOptions),
-        ...(options.prettyPrint as pino.PrettyOptions),
+        ...(defaultLoggerOptions.prettyPrint as PrettyOptions),
+        ...(options.prettyPrint as PrettyOptions),
       },
     }
 
@@ -217,12 +264,12 @@ export const createLogger = ({
 
   if (showConfig) {
     console.log('Logger Configuration')
-    console.log(`isProduction: ${String(isProduction)}`)
-    console.log(`isDevelopment: ${String(isDevelopment)}`)
-    console.log(`isTest: ${String(isTest)}`)
-    console.log(`isPretty: ${String(isPretty)}`)
-    console.log(`isFile: ${String(isFile)}`)
-    console.log(`isStream: ${String(isStream)}`)
+    console.log(`isProduction:`, isProduction)
+    console.log(`isDevelopment:`, isDevelopment)
+    console.log(`isTest:`, isTest)
+    console.log(`isPretty:`, isPretty)
+    console.log(`isFile:`, isFile)
+    console.log(`isStream:`, isStream)
     console.log(`logLevel: ${logLevel}`)
     console.log(`options: ${JSON.stringify(options, null, 2)}`)
     console.log(`destination: ${String(destination)}`)
@@ -235,7 +282,7 @@ export const createLogger = ({
       )
     }
 
-    return pino(options, stream as pino.DestinationStream)
+    return pino(options, stream as DestinationStream)
   } else {
     if (isStream && isDevelopment && !isTest) {
       console.warn(
@@ -249,6 +296,24 @@ export const createLogger = ({
       )
     }
 
-    return pino(options, stream as pino.DestinationStream)
+    return pino(options, stream as DestinationStream)
   }
+}
+
+/**
+ * Determines the type and level of logging.
+ *
+ * @see {@link https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#log}
+ */
+export const defaultLogLevels: LogLevel[] = ['info', 'warn', 'error']
+
+/**
+ * Generates the Prisma Log Definitions for the Prisma Client to emit
+ *
+ * @return Prisma.LogDefinition[]
+ */
+export const emitLogLevels = (setLogLevels: LogLevel[]): LogDefinition[] => {
+  return setLogLevels?.map((level) => {
+    return { emit: 'event', level } as LogDefinition
+  })
 }
