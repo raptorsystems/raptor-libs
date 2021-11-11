@@ -52,7 +52,7 @@ export const helpscoutBeaconPlugin: HelpscoutBeaconPlugin =
 
 declare global {
   interface Window {
-    onNuxtReady: (callback: () => void) => void
+    onNuxtReady: (callback: () => void | Promise<void>) => void
   }
 }
 
