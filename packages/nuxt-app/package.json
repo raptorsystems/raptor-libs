@@ -19,6 +19,6 @@
   "devDependencies": {
     "@nuxt/types": "2.15.8",
     "@raptor/eslint-config-nuxt": "workspace:*",
-    "@sentry/types": "^6.14.3"
+    "@sentry/types": "^6.15.0"
   }
 }
