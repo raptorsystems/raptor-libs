@@ -25,5 +25,6 @@ module.exports = {
     'require-atomic-updates': 'off',
     // @typescript-eslint
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-unsafe-argument': 'off',
   },
 }
