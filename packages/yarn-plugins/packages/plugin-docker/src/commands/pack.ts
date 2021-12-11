@@ -99,7 +99,7 @@ export default class DockerPackCommand extends BaseCommand {
         )
 
         await report.startTimerPromise('Remove previous build', async () => {
-          await xfs.rmdirPromise(buildDir, { recursive: true })
+          await xfs.removePromise(buildDir, { recursive: true })
         })
 
         const manifestDir = ppath.join(buildDir, toFilename('manifests'))
