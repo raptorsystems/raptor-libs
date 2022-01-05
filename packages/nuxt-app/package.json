@@ -6,7 +6,7 @@
   },
   "main": "src",
   "dependencies": {
-    "@fullstory/browser": "^1.4.9",
+    "@fullstory/browser": "^1.4.10",
     "@raptor/nuxt-apollo": "workspace:*",
     "@raptor/nuxt-web": "workspace:*",
     "axios": "0.24.0"
