@@ -12,7 +12,7 @@
     "axios": "0.24.0"
   },
   "peerDependencies": {
-    "@nuxtjs/auth-next": "5.0.0-1624817847.21691f1",
+    "@nuxtjs/auth-next": "5.0.0-1642002736.1ff8a7a",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/sentry": "^5.1.3"
   },

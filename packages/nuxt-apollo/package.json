@@ -18,7 +18,7 @@
   },
   "peerDependencies": {
     "@nuxtjs/apollo": "^4.0.1-rc.5",
-    "@nuxtjs/auth-next": "5.0.0-1624817847.21691f1"
+    "@nuxtjs/auth-next": "5.0.0-1642002736.1ff8a7a"
   },
   "devDependencies": {
     "@nuxt/types": "2.15.8",
