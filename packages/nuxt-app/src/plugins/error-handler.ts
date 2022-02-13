@@ -52,7 +52,7 @@ const hasCodeRegex = (error: NullableError, pattern: string | RegExp) =>
     value ? new RegExp(pattern).test(value.toString()) : false,
   )
 
-export const errorHandlerPlugin: Plugin = ({ $sentry }, inject) => {
+export const errorHandlerPlugin: Plugin = ({ $sentry, isDev }, inject) => {
   const handler: ErrorHandler = {
     hasCode: hasCodeEquals,
 
@@ -81,6 +81,7 @@ export const errorHandlerPlugin: Plugin = ({ $sentry }, inject) => {
     hasGraphQLError: (error) => Boolean(error?.graphQLErrors?.length),
 
     capture(error, captureContext) {
+      if (isDev) console.error(error, captureContext)
       if (!error || !$sentry) return
       // ignore expected errors
       if (this.isUnauthorized(error)) return
