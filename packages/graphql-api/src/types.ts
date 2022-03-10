@@ -13,3 +13,9 @@ export interface UserPayload extends Record<string, unknown> {
 export interface UserHeaders extends IncomingHttpHeaders {
   user?: string | undefined
 }
+
+export interface UserData<AppMetadata = unknown, UserMetadata = unknown> {
+  userId: string
+  app_metadata: AppMetadata | undefined | null
+  user_metadata: UserMetadata | undefined | null
+}

@@ -1,5 +1,5 @@
 import { AuthenticationError } from 'apollo-server-errors'
-import type { UserHeaders, UserPayload } from '../types'
+import type { UserHeaders, UserPayload, UserData } from '../types'
 
 const authNamespace = process.env.AUTH_NAMESPACE as string
 
@@ -8,7 +8,8 @@ export class UserService<
   UserMetadata = unknown,
   Payload extends UserPayload = UserPayload,
   Headers extends UserHeaders = UserHeaders,
-> {
+> implements UserData<AppMetadata, UserMetadata>
+{
   public token: string
   public payload: Payload
   public headers: Headers
