@@ -28,7 +28,7 @@ export const graphqlSubscriptions: FastifyPluginCallback<{
      */
     wrapEmitter(connection.socket, asyncResource) // eslint-disable-line @typescript-eslint/no-unsafe-call
 
-    const handler = makeHandler({
+    const handler = makeHandler<UserHeaders>({
       schema,
       onConnect: async ({ connectionParams }) => {
         if (!connectionParams) throw new Error('Missing connectionParams')
@@ -42,7 +42,7 @@ export const graphqlSubscriptions: FastifyPluginCallback<{
       },
       context: ({ connectionParams }) => {
         if (!connectionParams) throw new Error('Missing connectionParams')
-        const headers = connectionParams as UserHeaders
+        const headers = connectionParams
         const token = instance.auth0.getToken(headers)
         const payload = instance.auth0.decodeToken(token)
         const context = contextFactory(token, payload, headers)

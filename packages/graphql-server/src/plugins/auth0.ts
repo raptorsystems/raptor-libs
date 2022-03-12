@@ -1,4 +1,4 @@
-import type { UserPayload } from '@raptor/graphql-api'
+import type { UserHeaders, UserPayload } from '@raptor/graphql-api'
 import type { FastifyPluginCallback } from 'fastify'
 import fp from 'fastify-plugin'
 import createError from 'http-errors'
@@ -20,15 +20,14 @@ export const getJwksClient = (domain: string): JwksClient =>
     timeout: 5000,
   })
 
-export function getToken(headers: {
-  authorization?: string
-  Authorization?: string
-}): string {
+export function getToken(headers: UserHeaders): string {
   // get auth header
   // ? vue-cli-plugin-apollo capitalizes "Authorization" header name https://github.com/Akryum/vue-cli-plugin-apollo/pull/252
   const authorization = headers['authorization'] ?? headers['Authorization']
   if (!authorization)
     throw new createError.Unauthorized('Missing `authorization` header')
+  if (Array.isArray(authorization))
+    throw new createError.Unauthorized('Invalid `authorization` header')
 
   // extract token
   const token = authorization.split(/\s+/)[1]?.trim()
