@@ -8,11 +8,6 @@ export class SentryService {
 
   constructor() {
     this.instance = Sentry
-    if (!this.isInitialized) throw new Error('Sentry is not initialized!')
-  }
-
-  get isInitialized() {
-    return Boolean(this.instance.getCurrentHub().getClient())
   }
 
   setUser(scope: Scope) {

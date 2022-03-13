@@ -4,7 +4,9 @@
     "name": "Raptor Systems SpA",
     "email": "raptor@raptorsystems.cl"
   },
+  "type": "module",
   "main": "src",
+  "exports": "./src/index.ts",
   "dependencies": {
     "pino": "~7.8.1",
     "pino-pretty": "^7.5.3"

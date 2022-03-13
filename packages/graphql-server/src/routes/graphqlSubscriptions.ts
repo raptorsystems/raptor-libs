@@ -7,7 +7,7 @@ import type { FastifyPluginCallback } from 'fastify'
 import fastifyWebsocket from 'fastify-websocket'
 import type { GraphQLSchema } from 'graphql'
 import { makeHandler } from 'graphql-ws/lib/use/fastify-websocket'
-import { Unauthorized } from 'http-errors'
+import httpsErrors from 'http-errors'
 
 // graphql-ws server usage with fastify-websocket
 // https://github.com/enisdenjo/graphql-ws#with-fastify-websocket
@@ -62,5 +62,5 @@ export const graphqlSubscriptions: FastifyPluginCallback<{
 
 // Workaround to catch Unauthorized errors on client
 const handleUnauthorized = <T>(error: T) => {
-  if (error instanceof Unauthorized) error.message = 'UNAUTHENTICATED'
+  if (error instanceof httpsErrors.Unauthorized) error.message = 'UNAUTHENTICATED'
 }

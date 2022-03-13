@@ -4,7 +4,13 @@
     "name": "Raptor Systems SpA",
     "email": "raptor@raptorsystems.cl"
   },
+  "type": "module",
   "main": "src",
+  "exports": {
+    ".": "./src/index.ts",
+    "./plugins/*": "./src/plugins/*.ts",
+    "./modules/*": "./src/modules/*.ts"
+  },
   "dependencies": {
     "@raptor/helpscout-beacon": "workspace:*",
     "vuex": "^3.6.2"

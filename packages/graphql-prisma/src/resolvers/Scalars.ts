@@ -1,14 +1,16 @@
-import { Prisma } from '@prisma/client'
+import prisma from '@prisma/client'
 import { isNullish } from '@raptor/utils'
 import { GraphQLError } from 'graphql'
 import { Kind } from 'graphql/language'
 import { scalarType } from 'nexus'
 
-const processDecimal = (value: Prisma.Decimal.Value | null | undefined) => {
+const processDecimal = (
+  value: prisma.Prisma.Decimal.Value | null | undefined,
+) => {
   if (isNullish(value) || Number.isNaN(value))
     throw new TypeError(`Value is not a valid number: ${String(value)}`)
 
-  const parsedValue = new Prisma.Decimal(value)
+  const parsedValue = new prisma.Prisma.Decimal(value)
 
   if (!parsedValue.isFinite())
     throw new TypeError(`Value is not a finite decimal: ${String(value)}`)

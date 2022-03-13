@@ -1,5 +1,5 @@
 import findConfig from 'find-config'
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 import { makeSchema } from 'nexus'
 import * as path from 'path'
 
@@ -27,7 +27,7 @@ export const makeNexusSchema = (
           schema: path.join(outputDir, 'schema.graphql'),
           typegen: path.join(outputDir, 'nexusTypes.ts'),
         },
-        prettierConfig: findConfig('.prettierrc.js') ?? undefined,
+        prettierConfig: findConfig('.prettierrc.cjs') ?? undefined,
         nonNullDefaults: {
           input: false,
           output: true,

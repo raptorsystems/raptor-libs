@@ -1,13 +1,13 @@
-import * as prisma from '@prisma/client'
-import * as relay from 'graphql-relay'
+import type { Prisma } from '@prisma/client'
+import type * as relay from 'graphql-relay'
 
-export type Decimal = prisma.Prisma.Decimal
+export type Decimal = Prisma.Decimal
 
-export type DecimalValue = prisma.Prisma.Decimal.Value
+export type DecimalValue = Prisma.Decimal.Value
 
 // ? nexus fails to find this types
-export type QueryMode = prisma.Prisma.QueryMode
-export type SortOrder = prisma.Prisma.SortOrder
+export type QueryMode = Prisma.QueryMode
+export type SortOrder = Prisma.SortOrder
 
 export interface PrismaPaginationArgs {
   cursor?: string

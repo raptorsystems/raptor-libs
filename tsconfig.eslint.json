@@ -7,7 +7,7 @@
     // project files
     "packages/**/*",
     // config files
-    "**/.eslintrc.js",
-    ".prettierrc.js"
+    "**/.eslintrc.cjs",
+    ".prettierrc.cjs"
   ]
 }

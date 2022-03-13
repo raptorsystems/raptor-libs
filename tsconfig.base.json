@@ -5,7 +5,7 @@
     "declaration": false,
     "importHelpers": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "module": "CommonJS",
+    "module": "ESNext",
     "rootDir": ".",
     "sourceMap": true,
     "target": "ES2019", // ? https://github.com/TypeStrong/ts-loader/issues/1061#issuecomment-609613807

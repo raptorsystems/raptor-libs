@@ -4,5 +4,7 @@
     "name": "Raptor Systems SpA",
     "email": "raptor@raptorsystems.cl"
   },
-  "main": "src"
+  "type": "module",
+  "main": "src",
+  "exports": "./src/index.ts"
 }

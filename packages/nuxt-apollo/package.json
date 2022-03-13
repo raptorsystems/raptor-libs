@@ -4,7 +4,9 @@
     "name": "Raptor Systems SpA",
     "email": "raptor@raptorsystems.cl"
   },
+  "type": "module",
   "main": "src",
+  "exports": "./src/index.ts",
   "dependencies": {
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",

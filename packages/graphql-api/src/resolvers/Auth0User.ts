@@ -2,7 +2,7 @@ import { objectType } from 'nexus'
 
 export const Auth0UserIdentityObjectType = objectType({
   name: 'UserIdentity',
-  nonNullDefaults: { output: false },
+  nonNullDefaults: { output: true },
   definition(t) {
     t.string('connection')
     t.string('user_id')
@@ -24,7 +24,7 @@ export const Auth0UserObjectType = objectType({
     t.string('user_id')
     t.string('created_at')
     t.string('updated_at')
-    t.list.nonNull.field('identities', { type: 'UserIdentity' })
+    t.list.nonNull.field('identities', { type: Auth0UserIdentityObjectType })
     // t.field('app_metadata', { type: 'AppMetadata' })
     // t.field('user_metadata', { type: 'UserMetadata' })
     t.string('picture')

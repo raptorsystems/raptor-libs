@@ -4,7 +4,9 @@
     "name": "Raptor Systems SpA",
     "email": "raptor@raptorsystems.cl"
   },
+  "type": "module",
   "main": "src",
+  "exports": "./src/index.ts",
   "dependencies": {
     "@sentry/integrations": "^6.18.2"
   },
