@@ -48,8 +48,9 @@ export async function relayFindManyCursor<Model extends { id: string }>(
   }
 
   // Get the start and end cursors
-  const startCursor = nodes.length > 0 ? nodes[0].id : null
-  const endCursor = nodes.length > 0 ? nodes[nodes.length - 1].id : null
+  const startCursor = nodes.length > 0 ? nodes[0]?.id ?? null : null
+  const endCursor =
+    nodes.length > 0 ? nodes[nodes.length - 1]?.id ?? null : null
 
   // If paginating forward:
   // - For the next page, see if we had an extra node in the result set
