@@ -8,7 +8,7 @@
   "main": "src",
   "exports": "./src/index.ts",
   "dependencies": {
-    "pino": "~7.8.1",
-    "pino-pretty": "^7.5.3"
+    "pino": "~7.9.1",
+    "pino-pretty": "^7.5.4"
   }
 }
