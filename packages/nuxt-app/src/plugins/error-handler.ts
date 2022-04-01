@@ -17,7 +17,10 @@ interface ErrorHandler {
   is404: (error: NullableError) => boolean
   hasNetworkError: (error: NullableError) => boolean
   hasGraphQLError: (error: NullableError) => boolean
-  capture: (error: NullableError, captureContext?: CaptureContext) => void
+  capture: (
+    error: NullableError,
+    captureContext?: CaptureContext,
+  ) => string | undefined
 }
 
 const hasCode = (error: NullableError, fn: (code?: ErrorCode) => boolean) => {
@@ -89,12 +92,12 @@ export const errorHandlerPlugin: Plugin = ({ $sentry, isDev }, inject) => {
       if (error.graphQLErrors) {
         for (const graphQLError of error.graphQLErrors) {
           if (!graphQLError.extensions?.reported)
-            $sentry.captureException(graphQLError, captureContext)
+            return $sentry.captureException(graphQLError, captureContext)
         }
       }
       // capture networkError
       if (error.networkError) {
-        $sentry.captureException(error.networkError)
+        return $sentry.captureException(error.networkError)
       }
     },
   }
