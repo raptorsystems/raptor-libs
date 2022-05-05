@@ -29,7 +29,7 @@ export const formatResult = (
     ),
 })
 
-export const graphql: FastifyPluginCallback<{
+export const graphqlHelix: FastifyPluginCallback<{
   schema: GraphQLSchema
   contextFactory: ContextFactory
 }> = (instance, { schema, contextFactory }, done) => {

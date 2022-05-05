@@ -1,3 +1,2 @@
-export { graphql } from './graphql'
-export { graphqlSubscriptions } from './graphqlSubscriptions'
+export { graphqlHelix } from './graphqlHelix'
 export { graphqlYoga } from './graphqlYoga'
