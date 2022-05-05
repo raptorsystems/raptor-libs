@@ -8,9 +8,9 @@
   "main": "src",
   "exports": "./src/index.ts",
   "dependencies": {
-    "@sentry/integrations": "^6.18.2"
+    "@sentry/integrations": "^6.19.7"
   },
   "devDependencies": {
-    "@sentry/types": "^6.18.2"
+    "@sentry/types": "^6.19.7"
   }
 }

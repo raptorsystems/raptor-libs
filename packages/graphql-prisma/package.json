@@ -11,7 +11,7 @@
     "./src/types": "./src/types.ts"
   },
   "dependencies": {
-    "@prisma/client": "~3.12.0",
+    "@prisma/client": "~3.13.0",
     "@raptor/utils": "workspace:*",
     "apollo-server-errors": "^2.5.0",
     "graphql": "^15.8.0",
