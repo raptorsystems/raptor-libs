@@ -1,5 +1,6 @@
 export * from './cache'
 export * from './error.handler'
 export { createHttpLink } from './link.http'
+export { createHttpSSELink } from './link.http.sse'
 export { createHttpWsLink } from './link.http.ws'
 export * from './types'
