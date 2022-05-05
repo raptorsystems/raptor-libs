@@ -90,7 +90,7 @@ export const graphqlYoga: FastifyPluginCallback<{
 
   instance.route({
     url: '/stream',
-    method: ['GET', 'POST', 'PUT', 'OPTIONS'],
+    method: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     handler: async (req, reply) => {
       try {
         // set existing headers from reply
