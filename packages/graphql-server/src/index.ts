@@ -7,10 +7,10 @@ export async function runServer(
   port: string | number,
 ) {
   const isProd = process.env.NODE_ENV === 'production'
-  const address = isProd ? '0.0.0.0' : undefined
+  const host = isProd ? '0.0.0.0' : 'localhost'
   try {
     if (!port) port = process.env.PORT || '4000'
-    const url = await server.listen(port, address)
+    const url = await server.listen({ port: Number(port), host })
     consola.info(chalk.bold(`Listening on: ${url}`))
   } catch (error: any) {
     server.log.error(error)
