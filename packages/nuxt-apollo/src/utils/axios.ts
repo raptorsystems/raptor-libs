@@ -1,47 +1,58 @@
-import type { Context } from '@nuxt/types'
-import type { AxiosRequestConfig, Method } from 'axios'
+import {
+  createAxiosHeaders,
+  createFetchHeaders,
+  getUrl,
+} from '@lifeomic/axios-fetch/src/typeUtils'
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import axios from 'axios'
-import { ContextHeaders } from '..'
+
+export type AxiosTransformer = (
+  config: AxiosRequestConfig,
+  input: RequestInfo,
+  init?: RequestInit,
+) => AxiosRequestConfig
 
 // Ref: https://github.com/lifeomic/axios-fetch
 export const axiosFetch =
   (
-    context: Context,
-    ctxHeaders?: ContextHeaders,
+    instance: () => AxiosInstance,
+    transformer: AxiosTransformer = (config) => config,
   ): WindowOrWorkerGlobalScope['fetch'] =>
   async (input, init) => {
-    const config: AxiosRequestConfig = {
-      url: input as string,
-      method: (init?.method as Method) || 'GET',
+    // build headers
+    const rawHeaders = createAxiosHeaders(init?.headers)
+    const lowerCasedHeaders = Object.entries(rawHeaders).reduce<
+      Record<string, string>
+    >((obj, [name, value]) => ({ ...obj, [name.toLowerCase()]: value }), {})
+    if (!('content-type' in lowerCasedHeaders))
+      lowerCasedHeaders['content-type'] = 'text/plain;charset=UTF-8'
+
+    // build config
+    const rawConfig: AxiosRequestConfig = {
+      url: getUrl(input),
+      method: init?.method || 'GET',
       data:
         typeof init?.body === 'undefined' || init?.body instanceof FormData
           ? init?.body
           : String(init.body),
-      headers: { ...parseHeaders(init?.headers), ...ctxHeaders?.(context) },
+      headers: lowerCasedHeaders,
       responseType: 'arraybuffer',
     }
 
-    const response = await context.$axios.request(config).catch((error) =>
-      axios.isAxiosError(error) // isAxiosError is undefined on $axios
-        ? error.response
-        : undefined,
-    )
+    const config = transformer(rawConfig, input, init)
 
-    return new Response(response?.data, {
-      status: response?.status,
-      statusText: response?.statusText,
-      headers: new Headers(response?.headers),
+    let response: AxiosResponse
+
+    try {
+      response = await instance().request(config)
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) response = error.response
+      else throw error
+    }
+
+    return new Response(response.data, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: createFetchHeaders(response.headers),
     })
   }
-
-const parseHeaders = (headers?: HeadersInit): Record<string, string> => {
-  if (!headers) {
-    return {}
-  } else if (headers instanceof Headers) {
-    return Object.fromEntries(headers.entries())
-  } else if (Array.isArray(headers)) {
-    return Object.fromEntries(headers) as Record<string, string>
-  } else {
-    return headers
-  }
-}

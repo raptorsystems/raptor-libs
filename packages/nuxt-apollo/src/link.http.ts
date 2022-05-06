@@ -6,7 +6,14 @@ export const createHttpLink: CreateApolloLink = (context, ctxHeaders) => {
   const uri = context.$config.apiURL as string
   if (!uri) throw new Error('Missing config: `apiURL`')
 
-  const fetch = axiosFetch(context, ctxHeaders)
+  const fetch = axiosFetch(
+    () => context.$axios,
+    ({ headers, ...config }) => ({
+      ...config,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      headers: { ...headers, ...ctxHeaders?.(context) },
+    }),
+  )
 
   return createLink({ uri, fetch })
 }
