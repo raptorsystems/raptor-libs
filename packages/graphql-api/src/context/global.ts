@@ -8,14 +8,15 @@ export type GlobalContext = Record<string, unknown>
 export const asyncResourceSymbol = Symbol('asyncResource')
 
 let GLOBAL_CONTEXT: GlobalContext = {}
-let PER_REQUEST_CONTEXT:
-  | undefined
-  | AsyncLocalStorage<Map<string, GlobalContext>> = undefined
+let PER_REQUEST_CONTEXT: AsyncLocalStorage<Map<string, GlobalContext>>
 
-export const usePerRequestContext = () =>
-  process.env.SAFE_GLOBAL_CONTEXT !== '1'
+export const shouldUseLocalStorageContext = () =>
+  process.env.DISABLE_CONTEXT_ISOLATION !== '1'
 
-export const getPerRequestContext = () => {
+/**
+ * This returns a AsyncLocalStorage instance, not the actual store
+ */
+export const getAsyncStoreInstance = () => {
   if (!PER_REQUEST_CONTEXT) {
     PER_REQUEST_CONTEXT = new AsyncLocalStorage()
   }
@@ -23,15 +24,28 @@ export const getPerRequestContext = () => {
 }
 
 export const createContextProxy = () => {
-  return new Proxy<GlobalContext>(GLOBAL_CONTEXT, {
-    get: (_target, property: string) => {
-      const store = getPerRequestContext().getStore()
-      if (!store) throw new Error('Missing Global Store')
-      const context = store.get('context')
-      if (!context) throw new Error('Missing Global Context')
-      return context[property]
-    },
-  })
+  if (shouldUseLocalStorageContext()) {
+    return new Proxy<GlobalContext>(GLOBAL_CONTEXT, {
+      get: (_target, property: string) => {
+        const store = getAsyncStoreInstance().getStore()
+        if (!store) throw new Error('Missing Global Store')
+        const ctx = store.get('context')
+        if (!ctx) throw new Error('Missing Global Context')
+        return ctx[property]
+      },
+      set: (_target, property: string, newVal) => {
+        const store = getAsyncStoreInstance().getStore()
+        if (!store) throw new Error('Missing Global Store')
+        const ctx = store.get('context')
+        if (!ctx) throw new Error('Missing Global Context')
+        ctx[property] = newVal
+        store.set('context', ctx)
+        return true
+      },
+    })
+  } else {
+    return GLOBAL_CONTEXT
+  }
 }
 
 export let context: GlobalContext = createContextProxy()
@@ -41,12 +55,12 @@ export let context: GlobalContext = createContextProxy()
  */
 export const setContext = (newContext: GlobalContext): GlobalContext => {
   GLOBAL_CONTEXT = newContext
-  if (usePerRequestContext()) {
+  if (shouldUseLocalStorageContext()) {
     // re-init the proxy against GLOBAL_CONTEXT,
     // so things like `console.log(context)` is the actual object,
     // not one initialized earlier.
     context = createContextProxy()
-    const store = getPerRequestContext().getStore()
+    const store = getAsyncStoreInstance().getStore()
     if (!store) throw new Error('Missing Global Store')
     store.set('context', GLOBAL_CONTEXT)
   } else {
