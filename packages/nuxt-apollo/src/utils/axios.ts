@@ -46,8 +46,10 @@ export const axiosFetch =
     try {
       response = await instance().request(config)
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response) response = error.response
-      else throw error
+      if (axios.isAxiosError(error) && error.response) {
+        if (!error.response.status) throw error
+        response = error.response
+      } else throw error
     }
 
     return new Response(response.data, {
