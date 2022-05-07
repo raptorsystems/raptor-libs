@@ -51,6 +51,7 @@ export const isProduction = !isDevelopment && !isTest
  *
  */
 export const redactionsList: string[] = [
+  // Redwood list
   'access_token',
   'data.access_token',
   'data.*.access_token',
@@ -82,6 +83,8 @@ export const redactionsList: string[] = [
   'secret',
   'data.secret',
   'data.*.secret',
+  // Our list
+  'credentials',
 ]
 
 /**
