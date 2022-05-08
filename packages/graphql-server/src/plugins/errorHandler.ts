@@ -4,27 +4,36 @@ import type { FastifyPluginCallback } from 'fastify'
 import fp from 'fastify-plugin'
 
 const errorHandler: FastifyPluginCallback = (instance, _opts, done) => {
-  const defaultErrorHandler = instance.errorHandler
-
   instance.setErrorHandler((error, request, reply) => {
     Sentry.captureException(error)
-    defaultErrorHandler(error, request, reply)
+    // default handler
+    if (reply.statusCode < 500)
+      reply.log.info({ res: reply, err: error }, error && error.message)
+    else
+      reply.log.error({ req: request, res: reply, err: error }, error?.message)
+    void reply.send(error)
   })
 
   done()
 }
 
 const contextErrorHandler: FastifyPluginCallback = (instance, _opts, done) => {
-  const defaultErrorHandler = instance.errorHandler
-
   instance.setErrorHandler((error, request, reply) => {
     try {
       context.sentry.captureException(error)
-    } catch (error_) {
+    } catch (contextError) {
       Sentry.captureException(error)
-      Sentry.captureException(error_)
+      Sentry.captureException(contextError)
     } finally {
-      defaultErrorHandler(error, request, reply)
+      // default handler
+      if (reply.statusCode < 500)
+        reply.log.info({ res: reply, err: error }, error && error.message)
+      else
+        reply.log.error(
+          { req: request, res: reply, err: error },
+          error?.message,
+        )
+      void reply.send(error)
     }
   })
 
