@@ -1,4 +1,5 @@
 export * from './context'
+export * from './errors'
 export { makeNexusSchema } from './nexus'
 export * from './resolvers'
 export { SentryService } from './services/sentry.service'

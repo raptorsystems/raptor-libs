@@ -1,5 +1,5 @@
-import { AuthenticationError } from 'apollo-server-errors'
-import type { UserHeaders, UserPayload, UserData } from '../types'
+import { AuthenticationError } from '../errors'
+import type { UserData, UserHeaders, UserPayload } from '../types'
 
 const authNamespace = process.env.AUTH_NAMESPACE as string
 

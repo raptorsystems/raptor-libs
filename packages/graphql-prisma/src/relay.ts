@@ -1,7 +1,7 @@
 // Reference
 // https://gist.github.com/ctrlplusb/17b5a1bd1736b5ba547bb15b3dd5be29
 
-import { UserInputError } from 'apollo-server-errors'
+import { UserInputError } from '@raptor/graphql-api'
 import { ConnectionArguments, ConnectionCursor } from 'graphql-relay'
 import { Connection, PrismaPaginationArgs } from './types'
 

@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/node'
 import type { CaptureContext, Scope, Severity } from '@sentry/types'
-import { ApolloError } from 'apollo-server-errors'
 import { context } from '../context'
+import { GraphQLError } from '../errors'
 
 export class SentryService {
   private instance: typeof Sentry
@@ -24,7 +24,7 @@ export class SentryService {
   }
 
   captureException(error: Error | string, captureContext?: CaptureContext) {
-    if (error instanceof ApolloError) {
+    if (error instanceof GraphQLError) {
       // check reported prop
       if (error.extensions.reported) return
       // add reported prop
