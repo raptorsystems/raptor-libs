@@ -13,7 +13,7 @@ export async function runServer(
     const url = await server.listen({ port: Number(port), host })
     consola.info(chalk.bold(`Listening on: ${url}`))
   } catch (error: any) {
-    server.log.error(error)
+    server.log.fatal(error)
     process.exit(1)
   }
 }
