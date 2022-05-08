@@ -1,5 +1,6 @@
+import { useSentry } from '@envelop/sentry'
 import { createServer } from '@graphql-yoga/node'
-import type { ContextFactory } from '@raptor/graphql-api'
+import type { BaseContext, ContextFactory } from '@raptor/graphql-api'
 import { setContext } from '@raptor/graphql-api'
 import type {
   FastifyPluginCallback,
@@ -25,10 +26,19 @@ export const graphqlYoga: FastifyPluginCallback<{
     await instance.auth0.verifyToken(token)
   })
 
-  const graphQLServer = createServer<ServerContext>({
+  const graphQLServer = createServer<ServerContext, BaseContext>({
     logging: instance.log,
     schema,
     graphiql: isDev,
+    plugins: [
+      useSentry({
+        configureScope: ({ contextValue }, scope) => {
+          const context = contextValue as BaseContext
+          scope.setUser({ id: context.user.userId })
+          scope.setExtra('user', context.user.payload)
+        },
+      }),
+    ],
     context: ({ req }) => {
       try {
         const token = instance.auth0.getToken(req.headers)

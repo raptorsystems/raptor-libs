@@ -8,10 +8,12 @@
   "main": "src",
   "exports": "./src/index.ts",
   "dependencies": {
+    "@envelop/sentry": "^3.4.0",
     "@graphql-yoga/node": "^2.5.0",
     "@raptor/graphql-api": "workspace:*",
     "@raptor/logger": "workspace:*",
     "@sentry/node": "^6.19.7",
+    "@sentry/tracing": "^6.19.7",
     "apollo-server-errors": "^2.5.0",
     "chalk": "^5.0.1",
     "consola": "^2.15.3",
