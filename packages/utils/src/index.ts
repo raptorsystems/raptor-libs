@@ -1,3 +1,3 @@
 export * from './datetime'
 export * from './itertools'
-export * from './nullish'
+export * from './type-guards'
