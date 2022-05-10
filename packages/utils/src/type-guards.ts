@@ -1,3 +1,6 @@
+export const isObject = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value != null
+
 // https://github.com/VitorLuizC/bitty/tree/master/packages/nullish
 
 export type Nullish = void | null | undefined
