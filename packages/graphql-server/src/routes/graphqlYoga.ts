@@ -30,7 +30,22 @@ export const graphqlYoga: FastifyPluginCallback<{
     logging: instance.log,
     schema,
     graphiql: isDev,
+    context: ({ req }) => {
+      try {
+        const token = instance.auth0.getToken(req.headers)
+        const payload = instance.auth0.decodeToken(token)
+        return contextFactory(token, payload, req.headers)
+      } catch (error) {
+        instance.log.error(error)
+        throw error
+      }
+    },
     plugins: [
+      {
+        onContextBuilding({ context }) {
+          setContext(context)
+        },
+      },
       useSentry({
         configureScope: ({ contextValue }, scope) => {
           const context = contextValue as BaseContext
@@ -39,18 +54,6 @@ export const graphqlYoga: FastifyPluginCallback<{
         },
       }),
     ],
-    context: ({ req }) => {
-      try {
-        const token = instance.auth0.getToken(req.headers)
-        const payload = instance.auth0.decodeToken(token)
-        const context = contextFactory(token, payload, req.headers)
-        setContext(context)
-        return context
-      } catch (error) {
-        instance.log.error(error)
-        throw error
-      }
-    },
   })
 
   const sseHandler = createSSEHandler({
@@ -87,14 +90,19 @@ export const graphqlYoga: FastifyPluginCallback<{
     url: '/',
     method: ['GET', 'POST', 'OPTIONS'],
     handler: async (req, reply) => {
-      const response = await graphQLServer.handleIncomingMessage(req, {
-        req,
-        reply,
-      })
-      for (const [name, value] of response.headers) {
-        void reply.header(name, value)
+      try {
+        const response = await graphQLServer.handleIncomingMessage(req, {
+          req,
+          reply,
+        })
+        for (const [name, value] of response.headers) {
+          void reply.header(name, value)
+        }
+        return reply.status(response.status).send(response.body)
+      } catch (error) {
+        instance.log.error(error)
+        throw error
       }
-      return reply.status(response.status).send(response.body)
     },
   })
 
