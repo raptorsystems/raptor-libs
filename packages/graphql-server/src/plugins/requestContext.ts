@@ -1,7 +1,6 @@
+import { getAsyncStoreInstance } from '@raptor/graphql-api'
 import { AsyncLocalStorage, AsyncResource } from 'async_hooks'
 import type { FastifyPluginCallback } from 'fastify'
-import { getAsyncStoreInstance } from '@raptor/graphql-api'
-import { getSentryHubAsyncStoreInstance, makeSentryHub } from '@raptor/sentry'
 import fp from 'fastify-plugin'
 
 type GetAsyncStore<T> = () => AsyncLocalStorage<T>
@@ -47,13 +46,5 @@ export const apiRequestContext = fp(
     asyncStore: getAsyncStoreInstance,
     defaultStoreValues: new Map(),
     asyncResourceKey: 'apiContext',
-  }),
-)
-
-export const sentryRequestContext = fp(
-  requestContext({
-    asyncStore: getSentryHubAsyncStoreInstance,
-    defaultStoreValues: makeSentryHub(),
-    asyncResourceKey: 'sentryHubContext',
   }),
 )
