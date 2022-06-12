@@ -35,11 +35,13 @@ export default class DockerPackCommand extends BaseCommand {
 
   public copyManifestFiles?: string[] = Option.Array('-cm,--copy-manifest')
 
+  public production?: boolean = Option.Boolean('-p,--production')
+
   public static usage = Command.Usage({
     category: 'Docker-related commands',
     description: 'Pack a workspace for Docker',
     details: `
-      This command will pack a build dir which only contains production dependencies for the specified workspace.
+      This command will pack a build dir which only contains required dependencies for the specified workspace.
 
       You can copy additional files or folders using the "--copy-pack/manifest" option. This is useful for secret keys or configuration files. The files will be copied to either the "manifests" or "packs" folders. The path can be either a path relative to the Dockerfile or an absolute path.
     `,
@@ -68,7 +70,7 @@ export default class DockerPackCommand extends BaseCommand {
     const requiredWorkspaces = getRequiredWorkspaces({
       project,
       workspaces: [workspace],
-      production: true,
+      production: this.production,
     })
 
     const dockerFilePath = await getDockerFilePath(
