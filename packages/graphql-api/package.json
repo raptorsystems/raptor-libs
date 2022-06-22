@@ -11,7 +11,7 @@
     "./src/types": "./src/types.ts"
   },
   "dependencies": {
-    "@graphql-yoga/common": "^2.5.0",
+    "@graphql-yoga/common": "^2.8.3",
     "@sentry/node": "^7.2.0",
     "find-config": "^1.0.0",
     "graphql": "^15.8.0",

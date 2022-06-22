@@ -9,7 +9,7 @@
   "exports": "./src/index.ts",
   "dependencies": {
     "@envelop/sentry": "^3.4.2",
-    "@graphql-yoga/node": "^2.5.0",
+    "@graphql-yoga/node": "^2.9.2",
     "@raptor/graphql-api": "workspace:*",
     "@raptor/logger": "workspace:*",
     "@sentry/node": "^7.2.0",
