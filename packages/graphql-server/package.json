@@ -19,10 +19,10 @@
     "fastify": "^4.1.0",
     "fastify-plugin": "^3.0.1",
     "graphql": "^15.8.0",
-    "graphql-sse": "^1.2.0",
+    "graphql-sse": "^1.2.3",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
-    "jwks-rsa": "^2.1.0"
+    "jwks-rsa": "^2.1.4"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.5.8"
