@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/node'
-import type { CaptureContext, Scope, Severity } from '@sentry/types'
+import type { CaptureContext, Scope, SeverityLevel } from '@sentry/types'
 import { context } from '../context'
 import { GraphQLError } from '../errors'
 
@@ -35,7 +35,10 @@ export class SentryService {
     })
   }
 
-  captureMessage(message: string, captureContext?: CaptureContext | Severity) {
+  captureMessage(
+    message: string,
+    captureContext?: CaptureContext | SeverityLevel,
+  ) {
     this.withScope(() => {
       this.instance.captureMessage(message, captureContext)
     })
