@@ -8,7 +8,7 @@ import axios from 'axios'
 
 export type AxiosTransformer = (
   config: AxiosRequestConfig,
-  input: RequestInfo,
+  input: RequestInfo | URL,
   init?: RequestInit,
 ) => AxiosRequestConfig
 
