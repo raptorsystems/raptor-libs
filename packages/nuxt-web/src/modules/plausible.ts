@@ -3,6 +3,7 @@ import type { Module } from '@nuxt/types'
 interface PlausibleOptions {
   enabled?: boolean
   domain?: string
+  partytown?: boolean
 }
 
 export const plausibleModule: Module<PlausibleOptions> = function (
@@ -33,6 +34,7 @@ export const plausibleModule: Module<PlausibleOptions> = function (
       src: 'https://plausible.io/js/plausible.js',
       async: true,
       defer: true,
+      type: options.partytown ? 'text/partytown' : undefined,
       'data-domain': options.domain,
     })
   }
