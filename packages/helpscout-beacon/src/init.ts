@@ -5,7 +5,8 @@ export const loadScript = () => {
   const head = document.head || document.getElementsByTagName('head')[0]
   const script = document.createElement('script')
 
-  script.async = true
+  script.async = false
+  script.defer = true
   script.src = 'https://beacon-v2.helpscout.net'
 
   head.appendChild(script)

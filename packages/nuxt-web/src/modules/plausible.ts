@@ -32,7 +32,7 @@ export const plausibleModule: Module<PlausibleOptions> = function (
     this.options.head.script = this.options.head.script || []
     this.options.head.script.push({
       src: 'https://plausible.io/js/plausible.js',
-      async: true,
+      async: false,
       defer: true,
       type: options.partytown ? 'text/partytown' : undefined,
       'data-domain': options.domain,
