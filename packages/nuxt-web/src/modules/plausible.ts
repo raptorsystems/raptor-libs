@@ -34,7 +34,7 @@ export const plausibleModule: Module<PlausibleOptions> = function (
       src: 'https://plausible.io/js/plausible.js',
       async: false,
       defer: true,
-      type: options.partytown ? 'text/partytown' : undefined,
+      type: options.partytown ? 'text/partytown' : 'text/javascript',
       'data-domain': options.domain,
     })
   }
