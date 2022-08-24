@@ -10,8 +10,6 @@ import type {
 import type { ExecutionArgs, GraphQLSchema } from 'graphql'
 import { createHandler as createSSEHandler } from 'graphql-sse'
 
-const isDev = process.env.NODE_ENV === 'development'
-
 type ServerContext = {
   req: FastifyRequest
   reply: FastifyReply
@@ -19,8 +17,9 @@ type ServerContext = {
 
 export const graphqlYoga: FastifyPluginCallback<{
   schema: GraphQLSchema
+  graphiql: boolean
   contextFactory: ContextFactory
-}> = (instance, { schema, contextFactory }, done) => {
+}> = (instance, { schema, graphiql, contextFactory }, done) => {
   instance.addHook('preValidation', async (req) => {
     const token = instance.auth0.getToken(req.headers)
     await instance.auth0.verifyToken(token)
@@ -29,7 +28,7 @@ export const graphqlYoga: FastifyPluginCallback<{
   const graphQLServer = createServer<ServerContext, BaseContext>({
     logging: instance.log,
     schema,
-    graphiql: isDev,
+    graphiql,
     context: ({ req }) => {
       try {
         const token = instance.auth0.getToken(req.headers)

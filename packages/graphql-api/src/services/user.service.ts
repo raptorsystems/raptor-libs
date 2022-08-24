@@ -1,8 +1,6 @@
 import { AuthenticationError } from '../errors'
 import type { UserData, UserHeaders, UserPayload } from '../types'
 
-const authNamespace = process.env.AUTH_NAMESPACE as string
-
 export class UserService<
   AppMetadata = unknown,
   UserMetadata = unknown,
@@ -13,12 +11,28 @@ export class UserService<
   public token: string
   public payload: Payload
   public headers: Headers
+  public namespace: string
+  public env: string
   public loggedIn = false
 
-  public constructor(token: string, payload: Payload, headers: Headers) {
+  public constructor({
+    token,
+    payload,
+    headers,
+    namespace,
+    env,
+  }: {
+    token: string
+    payload: Payload
+    headers: Headers
+    namespace: string
+    env: string
+  }) {
     // Set auth token
     this.token = token
     this.headers = headers
+    this.namespace = namespace
+    this.env = env
 
     // User is set if JWT middleware is successful
     // user corresponds to the decoded token
@@ -39,7 +53,7 @@ export class UserService<
   public getClaim = (claim: string) => this.payload[claim]
 
   public getCustomClaim = (claim: string) =>
-    this.payload[`${authNamespace}/${claim}`]
+    this.payload[`${this.namespace}/${claim}`]
 
   public get app_metadata(): AppMetadata | undefined | null {
     return this.getCustomClaim('app_metadata') as AppMetadata

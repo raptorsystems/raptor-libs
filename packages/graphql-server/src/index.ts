@@ -1,16 +1,13 @@
 import chalk from 'chalk'
 import consola from 'consola'
-import type { FastifyInstance } from 'fastify'
+import type { FastifyInstance, FastifyListenOptions } from 'fastify'
 
 export async function runServer(
   server: FastifyInstance,
-  port: string | number,
+  opts: FastifyListenOptions,
 ) {
-  const isProd = process.env.NODE_ENV === 'production'
-  const host = isProd ? '0.0.0.0' : 'localhost'
   try {
-    if (!port) port = process.env.PORT || '4000'
-    const url = await server.listen({ port: Number(port), host })
+    const url = await server.listen(opts)
     consola.info(chalk.bold(`Listening on: ${url}`))
   } catch (error) {
     server.log.fatal(error)
