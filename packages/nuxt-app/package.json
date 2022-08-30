@@ -11,7 +11,7 @@
     "./plugins/*": "./src/plugins/*.ts"
   },
   "dependencies": {
-    "@fullstory/browser": "^1.6.1",
+    "@fullstory/browser": "^1.6.2",
     "@raptor/nuxt-apollo": "workspace:*",
     "@raptor/nuxt-web": "workspace:*",
     "axios": "0.27.2"
