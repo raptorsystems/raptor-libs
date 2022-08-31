@@ -6,7 +6,7 @@
   },
   "main": "index.js",
   "devDependencies": {
-    "@nuxtjs/eslint-config-typescript": "^10.0.0",
+    "@nuxtjs/eslint-config-typescript": "^11.0.0",
     "@raptor/eslint-config": "workspace:*",
     "eslint": "^8.23.0",
     "eslint-plugin-vuetify": "^1.1.0"
