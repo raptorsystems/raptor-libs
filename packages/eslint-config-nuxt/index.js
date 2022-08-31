@@ -18,5 +18,6 @@ module.exports = {
     // vue
     'vue/html-self-closing': ['error', { html: { void: 'always' } }],
     'vue/multi-word-component-names': 'off',
+    'vue/no-v-text-v-html-on-component': 'off',
   },
 }
