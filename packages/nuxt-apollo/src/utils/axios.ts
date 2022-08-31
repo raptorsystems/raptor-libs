@@ -55,6 +55,6 @@ export const axiosFetch =
     return new Response(response.data, {
       status: response.status,
       statusText: response.statusText,
-      headers: createFetchHeaders(response.headers),
+      headers: createFetchHeaders(response.headers) as [string, string][],
     })
   }
