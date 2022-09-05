@@ -84,7 +84,10 @@ export const redactionsList: string[] = [
   'data.secret',
   'data.*.secret',
   // Our list
+  'access_key',
+  'apikey',
   'credentials',
+  'key',
 ]
 
 /**
