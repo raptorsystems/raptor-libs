@@ -1,7 +1,6 @@
 export * from './context'
 export * from './errors'
-export { makeNexusSchema } from './nexus'
-export * from './resolvers'
+export { generateFormattedSchema } from './generate'
 export { SentryService } from './services/sentry.service'
 export { UserService } from './services/user.service'
 export * from './types'
