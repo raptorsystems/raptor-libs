@@ -25,8 +25,5 @@
   "devDependencies": {
     "@nuxt/types": "2.15.8",
     "@raptor/eslint-config-nuxt": "workspace:*"
-  },
-  "installConfig": {
-    "hoistingLimits": "workspaces"
   }
 }

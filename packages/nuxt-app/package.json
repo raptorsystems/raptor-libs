@@ -23,8 +23,5 @@
     "@nuxt/types": "2.15.8",
     "@raptor/eslint-config-nuxt": "workspace:*",
     "@sentry/types": "^6.19.7"
-  },
-  "installConfig": {
-    "hoistingLimits": "workspaces"
   }
 }

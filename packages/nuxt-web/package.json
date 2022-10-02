@@ -19,8 +19,5 @@
     "@nuxt/types": "2.15.8",
     "@raptor/eslint-config-nuxt": "workspace:*",
     "@types/workbox-window": "^4.3.4"
-  },
-  "installConfig": {
-    "hoistingLimits": "workspaces"
   }
 }
