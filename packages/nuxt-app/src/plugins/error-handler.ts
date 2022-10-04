@@ -1,8 +1,8 @@
 import type { NuxtError, Plugin } from '@nuxt/types'
-import type { ApolloErrorResponse } from '@raptor/nuxt-apollo'
+import type { ApolloError } from '@raptor/nuxt-apollo'
 import type { CaptureContext } from '@sentry/types'
 
-type NullableError = NuxtError | ApolloErrorResponse | null | undefined
+type NullableError = NuxtError | ApolloError | null | undefined
 type ErrorCode = string | number
 
 interface ErrorHandler {
@@ -30,7 +30,7 @@ const hasCode = (error: NullableError, fn: (code?: ErrorCode) => boolean) => {
   const codeOnMessage =
     'message' in error && error.message ? fn(error.message) : false
   const codeOnGraphQLErrors = error.graphQLErrors?.some((graphQLError) =>
-    fn(graphQLError.extensions?.code),
+    fn(graphQLError.extensions?.code as ErrorCode | undefined),
   )
   const codeOnNetworkError =
     error.networkError && 'statusCode' in error.networkError

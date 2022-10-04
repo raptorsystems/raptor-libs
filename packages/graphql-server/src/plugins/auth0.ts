@@ -22,8 +22,7 @@ export const getJwksClient = (domain: string): JwksClient =>
 
 export function getToken(headers: UserHeaders): string {
   // get auth header
-  // ? vue-cli-plugin-apollo capitalizes "Authorization" header name https://github.com/Akryum/vue-cli-plugin-apollo/pull/252
-  const authorization = headers['authorization'] ?? headers['Authorization']
+  const authorization = headers['authorization']
   if (!authorization)
     throw new createError.Unauthorized('Missing `authorization` header')
   if (Array.isArray(authorization))

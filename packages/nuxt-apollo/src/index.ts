@@ -1,6 +1,7 @@
 export * from './cache'
 export * from './error.handler'
 export { createHttpLink } from './link.http'
-export { createHttpSSELink } from './link.http.sse'
+export { createSSELink } from './link.http.sse'
+export { apolloPlugin } from './plugin'
 export { createRetryLink } from './retry'
 export * from './types'

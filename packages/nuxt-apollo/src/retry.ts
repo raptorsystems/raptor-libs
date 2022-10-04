@@ -1,4 +1,4 @@
-import { RetryLink } from 'apollo-link-retry'
+import { RetryLink } from '@apollo/client/link/retry'
 
 export const createRetryLink = (options?: RetryLink.Options) =>
   new RetryLink({

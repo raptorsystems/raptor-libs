@@ -1,10 +1,14 @@
-import { createHttpLink as createLink } from 'apollo-link-http'
-import type { CreateApolloLink } from './types'
+import { HttpLink } from '@apollo/client/core'
+import type { CreateApolloHttpLink } from './types'
 import { axiosFetch } from './utils/axios'
 
-export const createHttpLink: CreateApolloLink = (context, ctxHeaders) => {
-  const uri = context.$config.apiURL as string
-  if (!uri) throw new Error('Missing config: `apiURL`')
+export const createHttpLink: CreateApolloHttpLink = ({
+  context,
+  ctxHeaders,
+  ...options
+}) => {
+  const uri = options?.uri ?? (context.$config.apiURL as string)
+  if (!uri) throw new Error('Missing HttpLink `uri`')
 
   const fetch = axiosFetch(
     () => context.$axios,
@@ -15,5 +19,5 @@ export const createHttpLink: CreateApolloLink = (context, ctxHeaders) => {
     }),
   )
 
-  return createLink({ uri, fetch })
+  return new HttpLink({ uri, fetch })
 }

@@ -1,26 +1,100 @@
-import type { CacheResolver, StoreObject } from 'apollo-cache-inmemory'
+import type {
+  FieldFunctionOptions,
+  FieldMergeFunction,
+  FieldPolicy,
+  FieldReadFunction,
+  Reference,
+} from '@apollo/client/cache'
+import { notNullish } from '@raptor/utils'
 
-type Args = {
-  id?: string
-  where?: { id: string | { equals?: string; in?: string[] } }
-}
+type KeyArgs = FieldPolicy<any>['keyArgs']
 
-type Context = { getCacheKey: (obj: StoreObject) => unknown }
+type Args =
+  | { id?: string }
+  | { where?: { id: string | { equals?: string; in?: string[] } } }
 
-export const cacheResolveOne =
-  (__typename: string): CacheResolver =>
-  (_root, args: Args, { getCacheKey }: Context) => {
-    const id = args?.id ?? args?.where?.id
-    if (id) return getCacheKey({ __typename, id })
-  }
+type SkipTakeArgs = Args & { skip?: number; take?: number }
 
-export const cacheResolveMany =
-  (__typename: string): CacheResolver =>
-  (_root, args: Args, { getCacheKey }: Context) => {
-    const id = args?.id ?? args?.where?.id
-    if (typeof id !== 'string') {
-      if (id?.equals) return getCacheKey({ __typename, id: id.equals })
-      if (id?.in)
-        return id.in.map((id: string) => getCacheKey({ __typename, id }))
+export const readOne =
+  <T>(
+    __typename: string,
+  ): FieldReadFunction<T, T | Reference, FieldFunctionOptions<Args>> =>
+  (existingData, { args, toReference }) => {
+    if (existingData || !args) return existingData
+    const id =
+      'id' in args ? args.id : 'where' in args ? args.where?.id : undefined
+    if (typeof id === 'string') {
+      return toReference({ __typename, id })
+    } else if (id?.equals) {
+      return toReference({ __typename, id: id.equals })
     }
   }
+
+export const readMany =
+  <T>(
+    __typename: string,
+  ): FieldReadFunction<
+    T[],
+    readonly T[] | Reference[],
+    FieldFunctionOptions<Args>
+  > =>
+  (existingData, { args, toReference }) => {
+    if (existingData || !args) return existingData
+    const id =
+      'id' in args ? args.id : 'where' in args ? args.where?.id : undefined
+    if (typeof id === 'string') {
+      const reference = toReference({ __typename, id })
+      if (reference) return [reference]
+    } else {
+      if (id?.equals) {
+        const reference = toReference({ __typename, id: id.equals })
+        if (reference) return [reference]
+      }
+      if (id?.in) {
+        return id.in
+          .map((id: string) => toReference({ __typename, id }))
+          .filter(notNullish)
+      }
+    }
+  }
+
+// https://github.com/apollographql/apollo-client/blob/02a78df36ab26af3dec71fb7b48c00d5836ed2cb/src/utilities/policies/pagination.ts#L24-L55
+export const skipTakeMerge =
+  <T>(): FieldMergeFunction<T[], T[], FieldFunctionOptions<SkipTakeArgs>> =>
+  (existing, incoming, { args }) => {
+    const merged = existing ? existing.slice(0) : []
+
+    if (incoming) {
+      if (args) {
+        // Assume an offset of 0 if args.offset omitted.
+        const { skip = 0 } = args
+        for (let i = 0; i < incoming.length; ++i) {
+          merged[skip + i] = incoming[i]
+        }
+      } else {
+        // It's unusual (probably a mistake) for a paginated field not
+        // to receive any arguments, so you might prefer to throw an
+        // exception here, instead of recovering by appending incoming
+        // onto the existing array.
+        return [...merged, ...incoming]
+      }
+    }
+
+    return merged
+  }
+
+export const skipTakePagination = <T>(
+  __typename: string,
+  keyArgs: KeyArgs = false,
+): FieldPolicy<
+  T[],
+  T[],
+  readonly T[] | Reference[],
+  FieldFunctionOptions<SkipTakeArgs>
+> => {
+  return {
+    keyArgs,
+    read: readMany(__typename),
+    merge: skipTakeMerge(),
+  }
+}

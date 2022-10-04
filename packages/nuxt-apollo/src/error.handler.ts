@@ -1,18 +1,19 @@
+import type { ApolloError } from '@apollo/client/core'
 import type { Context } from '@nuxt/types'
-import type { ErrorResponse } from 'apollo-link-error'
 
-export const errorHandler = (error: ErrorResponse, ctx: Context) => {
+export const errorHandler = (ctx: Context) => (error: ApolloError) => {
   // Redirect to error page
+  if (ctx.isDev) console.error(error)
   ctx.error(error)
 }
 
-export { ErrorResponse as ApolloErrorResponse }
+export { ApolloError }
 
 export default errorHandler
 
 declare module '@nuxt/types' {
   interface NuxtError {
-    graphQLErrors?: ErrorResponse['graphQLErrors']
-    networkError?: ErrorResponse['networkError']
+    graphQLErrors?: ApolloError['graphQLErrors']
+    networkError?: ApolloError['networkError']
   }
 }
