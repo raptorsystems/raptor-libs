@@ -1,7 +1,7 @@
 import {
+  createAxiosHeaders,
   createFetchHeaders,
   getUrl,
-  HeadersLike,
 } from '@lifeomic/axios-fetch/src/typeUtils'
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import axios from 'axios'
@@ -20,7 +20,12 @@ export const axiosFetch =
   ): WindowOrWorkerGlobalScope['fetch'] =>
   async (input, init) => {
     // build headers
-    const headers = createAxiosHeaders(init?.headers)
+    const rawHeaders = createAxiosHeaders(init?.headers)
+    const lowerCasedHeaders = Object.entries(rawHeaders).reduce<
+      Record<string, string>
+    >((obj, [name, value]) => ({ ...obj, [name.toLowerCase()]: value }), {})
+    if (!('content-type' in lowerCasedHeaders))
+      lowerCasedHeaders['content-type'] = 'text/plain;charset=UTF-8'
 
     // build config
     const rawConfig: AxiosRequestConfig = {
@@ -30,7 +35,7 @@ export const axiosFetch =
         typeof init?.body === 'undefined' || init?.body instanceof FormData
           ? init?.body
           : String(init.body),
-      headers,
+      headers: lowerCasedHeaders,
       responseType: 'arraybuffer',
     }
 
@@ -53,30 +58,3 @@ export const axiosFetch =
       headers: createFetchHeaders(response.headers) as [string, string][],
     })
   }
-
-const isHeaders = (headers: HeadersLike): headers is Headers =>
-  'constructor' in headers ? headers.constructor.name === 'Headers' : false
-
-const createAxiosHeaders = (
-  headers: HeadersLike = {},
-): Record<string, string> => {
-  const rawHeaders: Record<string, string> = {}
-  if (isHeaders(headers)) {
-    headers.forEach((value, name) => {
-      rawHeaders[name] = value
-    })
-  } else if (Array.isArray(headers)) {
-    headers.forEach(([name, value]) => {
-      if (value) {
-        rawHeaders[name!] = value
-      }
-    })
-  } else {
-    Object.entries(headers).forEach(([name, value]) => {
-      if (value) {
-        rawHeaders[name] = value
-      }
-    })
-  }
-  return rawHeaders
-}
