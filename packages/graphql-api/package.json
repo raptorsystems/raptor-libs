@@ -16,6 +16,7 @@
     "graphql": "^16.6.0"
   },
   "devDependencies": {
-    "@sentry/types": "^7.14.2"
+    "@sentry/types": "^7.14.2",
+    "prettier": "^2.7.1"
   }
 }

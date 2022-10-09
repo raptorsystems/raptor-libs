@@ -8,12 +8,11 @@
   "main": "src",
   "exports": "./src/index.ts",
   "dependencies": {
+    "@envelop/core": "^2.6.0",
     "@envelop/sentry": "^3.8.1",
     "@graphql-yoga/node": "^2.13.13",
     "@raptor/graphql-api": "workspace:*",
-    "@raptor/logger": "workspace:*",
     "@sentry/node": "^7.14.2",
-    "@sentry/tracing": "^7.14.2",
     "chalk": "^5.1.0",
     "consola": "^2.15.3",
     "fastify": "^4.7.0",
