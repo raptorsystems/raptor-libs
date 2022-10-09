@@ -1,0 +1,21 @@
+{
+  "name": "@raptor/yarn-plugin-resolve",
+  "author": {
+    "name": "Raptor Systems SpA",
+    "email": "raptor@raptorsystems.cl"
+  },
+  "type": "module",
+  "main": "src",
+  "exports": "./src/index.ts",
+  "scripts": {
+    "build": "builder build plugin && yarn plugin import ./bundles/@yarnpkg/plugin-resolve.js"
+  },
+  "dependencies": {
+    "clipanion": "^3.2.0-rc.12"
+  },
+  "devDependencies": {
+    "@yarnpkg/builder": "^3.2.5",
+    "@yarnpkg/cli": "^3.2.4",
+    "@yarnpkg/core": "^3.2.5"
+  }
+}
