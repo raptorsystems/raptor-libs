@@ -116,7 +116,7 @@ export const graphqlYoga: FastifyPluginCallback<{
           if (value) reply.raw.setHeader(name, value)
         }
         await sseHandler(req.raw, reply.raw, req.body)
-        reply.sent = true
+        await reply.hijack()
       } catch (error) {
         instance.log.error(error)
         throw error
