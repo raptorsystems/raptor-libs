@@ -2,7 +2,7 @@ import { ApolloClient, ApolloClientOptions } from '@apollo/client/core'
 import type { Plugin } from '@nuxt/types'
 import Vue from 'vue'
 import VueApollo from 'vue-apollo'
-import { errorHandler } from '@raptor/nuxt-apollo'
+import { errorHandler } from './error.handler'
 
 export const apolloPlugin =
   <TCacheShape>(options: ApolloClientOptions<TCacheShape>): Plugin =>
