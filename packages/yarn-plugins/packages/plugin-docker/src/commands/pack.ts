@@ -6,11 +6,8 @@ import {
   StreamReport,
   structUtils,
 } from '@yarnpkg/core'
-import { xfs } from '@yarnpkg/fslib'
-import { npath, ppath, toFilename } from '@yarnpkg/fslib'
+import { npath, ppath, toFilename, xfs } from '@yarnpkg/fslib'
 import { patchUtils } from '@yarnpkg/plugin-patch'
-import copyDockerfile from '../utils/copyDockerfile'
-import getDockerFilePath from '../utils/getDockerFilePath'
 import { Command, Option } from 'clipanion'
 import copyAdditional from '../utils/copyAdditional'
 import copyCacheMarkedFiles from '../utils/copyCacheMarkedFiles'
@@ -27,8 +24,6 @@ import packWorkspace from '../utils/packWorkspace'
 export default class DockerPackCommand extends BaseCommand {
   public workspaceName: string = Option.String()
 
-  public dockerFilePath?: string = Option.String('-f,--file')
-
   public buildDir: string = Option.String('-d,--dir', 'build')
 
   public copyPackFiles?: string[] = Option.Array('-cp,--copy-pack')
@@ -43,7 +38,7 @@ export default class DockerPackCommand extends BaseCommand {
     details: `
       This command will pack a build dir which only contains required dependencies for the specified workspace.
 
-      You can copy additional files or folders using the "--copy-pack/manifest" option. This is useful for secret keys or configuration files. The files will be copied to either the "manifests" or "packs" folders. The path can be either a path relative to the Dockerfile or an absolute path.
+      You can copy additional files or folders using the "--copy-pack/manifest" option. This is useful for secret keys or configuration files. The files will be copied to either the "manifests" or "packs" folders. The path can be either a path relative to the build dir or an absolute path.
     `,
     examples: [
       ['Pack a workspace for Docker', 'yarn docker pack @foo/bar'],
@@ -72,11 +67,6 @@ export default class DockerPackCommand extends BaseCommand {
       workspaces: [workspace],
       production: this.production,
     })
-
-    const dockerFilePath = await getDockerFilePath(
-      workspace,
-      this.dockerFilePath,
-    )
 
     const cache = await Cache.find(configuration)
 
@@ -170,7 +160,7 @@ export default class DockerPackCommand extends BaseCommand {
             await copyAdditional({
               destination: manifestDir,
               files: this.copyManifestFiles,
-              dockerFilePath,
+              buildDir,
               report,
             })
           }
@@ -195,16 +185,10 @@ export default class DockerPackCommand extends BaseCommand {
           await copyAdditional({
             destination: packDir,
             files: this.copyPackFiles,
-            dockerFilePath,
+            buildDir,
             report,
           })
         }
-
-        await copyDockerfile({
-          destination: buildDir,
-          dockerFilePath,
-          report,
-        })
       },
     )
 

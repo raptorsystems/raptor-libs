@@ -14,15 +14,15 @@ function resolvePath(baseDir: PortablePath, inputPath: string): PortablePath {
 export default async function copyAdditional({
   destination,
   files,
-  dockerFilePath,
+  buildDir,
   report,
 }: {
   destination: PortablePath
   files: string[]
-  dockerFilePath: PortablePath
+  buildDir: PortablePath
   report: Report
 }): Promise<void> {
-  const baseDir = ppath.dirname(dockerFilePath)
+  const baseDir = ppath.dirname(buildDir)
 
   for (const file of files) {
     const path = resolvePath(baseDir, file)
