@@ -1,5 +1,5 @@
 import { PortablePath, xfs, ppath } from '@yarnpkg/fslib'
-import { Cache, Project, Report } from '@yarnpkg/core'
+import { Cache, MessageName, Project, Report } from '@yarnpkg/core'
 
 export default async function copyCacheMarkedFiles({
   destination,
@@ -14,8 +14,11 @@ export default async function copyCacheMarkedFiles({
 }): Promise<void> {
   for (const src of cache.markedFiles) {
     const path = ppath.relative(project.cwd, src)
-
-    report.reportInfo(null, path)
-    await xfs.copyPromise(ppath.join(destination, path), src)
+    if (await xfs.existsPromise(src)) {
+      report.reportInfo(null, path)
+      await xfs.copyPromise(ppath.join(destination, path), src)
+    } else {
+      report.reportWarning(MessageName.UNUSED_CACHE_ENTRY, path)
+    }
   }
 }
