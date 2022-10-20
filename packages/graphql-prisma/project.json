@@ -1,0 +1,22 @@
+{
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["raptor/packages/graphql-prisma/**/*.ts"]
+      },
+      "configurations": {
+        "fix": {
+          "fix": true
+        }
+      }
+    },
+    "check-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "yarn check-types --project raptor/packages/graphql-prisma"
+      }
+    }
+  }
+}

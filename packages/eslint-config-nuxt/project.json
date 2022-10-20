@@ -1,0 +1,16 @@
+{
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["raptor/packages/eslint-config-nuxt/**/*.js"]
+      },
+      "configurations": {
+        "fix": {
+          "fix": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["raptor/packages/nuxt-web/**/*.{ts,js,vue}"]
+      },
+      "configurations": {
+        "fix": {
+          "fix": true
+        }
+      }
+    },
+    "check-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "yarn check-types --project raptor/packages/nuxt-web"
+      }
+    }
+  }
+}
