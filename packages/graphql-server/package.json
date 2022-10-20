@@ -12,7 +12,7 @@
     "@envelop/sentry": "^4.0.2",
     "@graphql-yoga/node": "^2.13.13",
     "@raptor/graphql-api": "workspace:*",
-    "@sentry/node": "^7.15.0",
+    "@sentry/node": "^7.16.0",
     "chalk": "^5.1.2",
     "consola": "^2.15.3",
     "fastify": "^4.9.2",
