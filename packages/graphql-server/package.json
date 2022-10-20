@@ -24,6 +24,7 @@
     "jwks-rsa": "^2.1.5"
   },
   "devDependencies": {
+    "@types/http-errors": "^1.8.2",
     "@types/jsonwebtoken": "^8.5.9"
   }
 }
