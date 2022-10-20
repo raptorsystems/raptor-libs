@@ -52,6 +52,7 @@ export const graphqlYoga: FastifyPluginCallback<{
           scope.setExtra('user', context.user.payload)
         },
         eventIdKey: null, // ! https://github.com/n1ru4l/envelop/issues/1394
+        trackResolvers: false, // ! https://github.com/n1ru4l/envelop/issues/1436
       }),
     ],
   })
