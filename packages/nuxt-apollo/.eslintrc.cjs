@@ -1,6 +1,8 @@
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
-  root: true,
-  extends: ['@raptor/eslint-config-nuxt'],
-  rules: {},
+  extends: ['@raptor/eslint-config/type-checking'],
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: ['./tsconfig.json'],
+  },
 }

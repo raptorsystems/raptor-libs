@@ -1,0 +1,15 @@
+{
+  "name": "@raptor/tsconfig",
+  "author": {
+    "name": "Raptor Systems SpA",
+    "email": "raptor@raptorsystems.cl"
+  },
+  "main": "index.ts",
+  "files": [
+    "base.json",
+    "node.json",
+    "ts-node.json",
+    "browser.json",
+    "nuxt.json"
+  ]
+}

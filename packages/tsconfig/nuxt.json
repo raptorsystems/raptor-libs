@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Nuxt",
+  "extends": "./browser.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "noEmit": true
+  },
+  "vueCompilerOptions": {
+    "target": 2.7
+  }
+}

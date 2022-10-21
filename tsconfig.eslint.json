@@ -1,13 +1,4 @@
 {
   "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "noEmit": true
-  },
-  "include": [
-    // project files
-    "packages/**/*",
-    // config files
-    "**/.eslintrc.cjs",
-    ".prettierrc.cjs"
-  ]
+  "include": [".eslintrc.cjs", ".prettierrc.cjs"]
 }

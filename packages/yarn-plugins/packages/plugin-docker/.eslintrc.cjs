@@ -1,4 +1,9 @@
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
-  rules: {},
+  extends: ['@raptor/eslint-config/type-checking'],
+  ignorePatterns: ['bundles'],
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: ['./tsconfig.json'],
+  },
 }

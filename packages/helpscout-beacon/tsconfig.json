@@ -1,3 +1,4 @@
 {
-  "extends": "../../tsconfig.base.json"
+  "extends": "@raptor/tsconfig/browser.json",
+  "include": ["src", ".eslintrc.cjs"]
 }

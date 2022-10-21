@@ -2,8 +2,8 @@
 module.exports = {
   plugins: ['@typescript-eslint'],
   env: {
-    es6: true,
     node: true,
+    es2022: true,
   },
   extends: [
     // Base ESLint recommended rules
@@ -11,13 +11,11 @@ module.exports = {
     // ESLint typescript rules
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#usage
     'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     // Prettier
     'plugin:prettier/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2020,
     sourceType: 'module',
   },
   rules: {

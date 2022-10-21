@@ -1,6 +1,7 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "@raptor/tsconfig/node.json",
   "compilerOptions": {
     "noUncheckedIndexedAccess": true
-  }
+  },
+  "include": ["src", ".eslintrc.cjs"]
 }
