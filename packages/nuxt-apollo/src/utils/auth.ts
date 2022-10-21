@@ -2,7 +2,10 @@ import type { Context } from '@nuxt/types'
 import { Oauth2Scheme } from '@nuxtjs/auth-next'
 
 // Ref: https://github.com/nuxt-community/auth-module/blob/75c20e64cc2bb8d4db7d7fc772432132a1d9e417/src/inc/request-handler.ts
-export class RequestHandler<Scheme extends Oauth2Scheme> {
+export class RequestHandler<
+  Scheme extends Oauth2Scheme,
+  Config extends Record<string, string>,
+> {
   public context: Context
 
   public constructor(context: Context) {
@@ -13,7 +16,7 @@ export class RequestHandler<Scheme extends Oauth2Scheme> {
     return this.context.$auth.strategy as Scheme
   }
 
-  public async authorize<Config>(config: Config): Promise<Config> {
+  public async authorize(config: Config): Promise<Config> {
     // Perform scheme checks.
     const { valid, tokenExpired, refreshTokenExpired, isRefreshable } =
       this.scheme.check(true)
@@ -66,15 +69,12 @@ export class RequestHandler<Scheme extends Oauth2Scheme> {
   // Watch requests for token expiration
   // Refresh tokens if token has expired
 
-  private _getUpdatedRequestConfig<Config>(
-    config: Config,
-    token: string | boolean,
-  ) {
+  private _getUpdatedRequestConfig(config: Config, token: string | boolean) {
     if (typeof token !== 'string') return config
     return { ...config, [this.scheme.options.token.name]: token }
   }
 
-  private _requestHasAuthorization<Config>(config: Config): boolean {
+  private _requestHasAuthorization(config: Config): boolean {
     return !!config[this.scheme.options.token.name]
   }
 }

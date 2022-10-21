@@ -52,6 +52,7 @@ export const axiosFetch =
       } else throw error
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return new Response(response.data, {
       status: response.status,
       statusText: response.statusText,

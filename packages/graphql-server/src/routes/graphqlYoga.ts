@@ -1,5 +1,5 @@
 import { useSentry } from '@envelop/sentry'
-import { createServer } from '@graphql-yoga/node'
+import { createServer, Plugin } from '@graphql-yoga/node'
 import type { BaseContext, ContextFactory } from '@raptor/graphql-api'
 import { setContext } from '@raptor/graphql-api'
 import type {
@@ -44,7 +44,7 @@ export const graphqlYoga: FastifyPluginCallback<{
         onContextBuilding({ context }) {
           setContext(context)
         },
-      },
+      } as Plugin<BaseContext>,
       useSentry({
         configureScope: ({ contextValue }, scope) => {
           const context = contextValue as BaseContext
@@ -96,9 +96,9 @@ export const graphqlYoga: FastifyPluginCallback<{
           req,
           reply,
         })
-        for (const [name, value] of response.headers) {
+        response.headers.forEach((value, name) => {
           void reply.header(name, value)
-        }
+        })
         return reply.status(response.status).send(response.body)
       } catch (error) {
         instance.log.error(error)

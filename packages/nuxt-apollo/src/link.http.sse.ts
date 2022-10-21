@@ -46,7 +46,9 @@ export const createSSELink: CreateApolloHttpLink = ({
     url: uri,
     singleConnection: true,
     headers: async () => {
-      const headers = await requestHandler.authorize(ctxHeaders?.(context))
+      const headers = await requestHandler.authorize(
+        ctxHeaders?.(context) ?? {},
+      )
       return { ...headers }
     },
   })
