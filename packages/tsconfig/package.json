@@ -8,7 +8,6 @@
   "files": [
     "base.json",
     "node.json",
-    "ts-node.json",
     "browser.json",
     "nuxt.json"
   ]
