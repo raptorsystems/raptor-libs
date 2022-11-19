@@ -1,4 +1,5 @@
 {
+  "name": "raptor-helpscout-beacon",
   "projectType": "library",
   "targets": {
     "lint": {

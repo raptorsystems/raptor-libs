@@ -1,4 +1,5 @@
 {
+  "name": "raptor-logger",
   "projectType": "library",
   "targets": {
     "lint": {
