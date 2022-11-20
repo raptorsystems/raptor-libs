@@ -6,7 +6,18 @@ const errorHandler: FastifyPluginCallback = (instance, _opts, done) => {
   const defaultErrorHandler = instance.errorHandler
 
   instance.setErrorHandler((error, request, reply) => {
-    Sentry.captureException(error)
+    Sentry.configureScope((scope) => {
+      if (instance.auth0) {
+        try {
+          const token = instance.auth0.getToken(request.headers)
+          const user = instance.auth0.decodeToken(token)
+          scope.setUser({ id: user.sub })
+        } catch (error) {
+          instance.log.warn(error)
+        }
+      }
+      Sentry.captureException(error)
+    })
     defaultErrorHandler(error, request, reply)
   })
 
