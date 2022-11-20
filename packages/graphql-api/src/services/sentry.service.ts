@@ -1,19 +1,21 @@
 import * as Sentry from '@sentry/node'
 import type { CaptureContext, Scope, SeverityLevel } from '@sentry/types'
-import { context } from '../context'
 import { GraphQLError } from '../errors'
+import { UserPayload } from '../types'
 
 export class SentryService {
   private instance: typeof Sentry
+  private user: UserPayload
 
-  constructor() {
+  constructor(user: UserPayload) {
     this.instance = Sentry
+    this.user = user
   }
 
   setUser(scope: Scope) {
     // UserPayload (access_token) doesn't contain more user info
-    scope.setUser({ id: context.user.userId })
-    scope.setExtra('user', context.user.payload)
+    scope.setUser({ id: this.user.sub })
+    scope.setExtra('user', this.user)
   }
 
   withScope(callback: (scope: Scope) => void) {
