@@ -37,13 +37,11 @@ export const createSSELink: CreateApolloHttpLink = ({
 }) => {
   const requestHandler = new RequestHandler(context)
 
-  const uri = options?.uri ?? (context.$config.apiSSEURL as string)
-  if (!uri) throw new Error('Missing SSELink `uri`')
-  if (typeof uri !== 'string')
-    throw new Error('SSELink `uri` is not a valid string')
+  const endpoint = options?.endpoint ?? (context.$config.apiSSEURL as string)
+  if (!endpoint) throw new Error('Missing SSELink `endpoint`')
 
   const sseLink = new SSELink({
-    url: uri,
+    url: endpoint,
     singleConnection: true,
     headers: async () => {
       const headers = await requestHandler.authorize(

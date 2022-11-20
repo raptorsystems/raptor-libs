@@ -1,5 +1,4 @@
 import { useSentry } from '@envelop/sentry'
-import { createServer, Plugin } from '@graphql-yoga/node'
 import type { BaseContext, ContextFactory } from '@raptor/graphql-api'
 import { setContext } from '@raptor/graphql-api'
 import type {
@@ -7,8 +6,9 @@ import type {
   FastifyReply,
   FastifyRequest,
 } from 'fastify'
-import type { ExecutionArgs, GraphQLSchema } from 'graphql'
+import type { DocumentNode, ExecutionArgs, GraphQLSchema } from 'graphql'
 import { createHandler as createSSEHandler } from 'graphql-sse'
+import { createYoga, Plugin } from 'graphql-yoga'
 
 type ServerContext = {
   req: FastifyRequest
@@ -17,18 +17,18 @@ type ServerContext = {
 
 export const graphqlYoga: FastifyPluginCallback<{
   schema: GraphQLSchema
-  graphiql: boolean
+  graphqlEndpoint?: string
   contextFactory: ContextFactory
-}> = (instance, { schema, graphiql, contextFactory }, done) => {
+}> = (instance, { schema, graphqlEndpoint, contextFactory }, done) => {
   instance.addHook('preValidation', async (req) => {
     const token = instance.auth0.getToken(req.headers)
     await instance.auth0.verifyToken(token)
   })
 
-  const graphQLServer = createServer<ServerContext, BaseContext>({
+  const graphQLServer = createYoga<ServerContext, BaseContext>({
     logging: instance.log,
     schema,
-    graphiql,
+    graphqlEndpoint,
     context: ({ req }) => {
       try {
         const token = instance.auth0.getToken(req.headers)
@@ -60,18 +60,28 @@ export const graphqlYoga: FastifyPluginCallback<{
   const sseHandler = createSSEHandler({
     schema,
     onSubscribe: async (req, res, params) => {
-      const { schema, execute, subscribe, contextFactory, parse, validate } =
-        graphQLServer.getEnveloped({
-          req,
-          res,
-          params,
-        })
+      const {
+        schema, // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+        execute,
+        subscribe,
+        contextFactory,
+        parse,
+        validate,
+      } = graphQLServer.getEnveloped({
+        req,
+        res,
+        params,
+      })
+
+      const document =
+        typeof params.query === 'string'
+          ? (parse(params.query) as DocumentNode)
+          : params.query
 
       const args: ExecutionArgs = {
-        schema,
+        schema: schema as GraphQLSchema,
         operationName: params.operationName,
-        document:
-          typeof params.query === 'string' ? parse(params.query) : params.query,
+        document,
         variableValues: params.variables,
         contextValue: await contextFactory(),
         rootValue: {
@@ -80,7 +90,7 @@ export const graphqlYoga: FastifyPluginCallback<{
         },
       }
 
-      const errors = validate(args.schema, args.document)
+      const errors = validate(args.schema, args.document) as Error[]
       if (errors.length) throw errors[0]
 
       return args
@@ -92,7 +102,7 @@ export const graphqlYoga: FastifyPluginCallback<{
     method: ['GET', 'POST', 'OPTIONS'],
     handler: async (req, reply) => {
       try {
-        const response = await graphQLServer.handleIncomingMessage(req, {
+        const response = await graphQLServer.handleNodeRequest(req, {
           req,
           reply,
         })
