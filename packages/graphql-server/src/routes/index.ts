@@ -1,1 +1,1 @@
-export { graphqlYoga } from './graphqlYoga'
+export { graphqlYogaAuth, graphqlYogaPublic } from './graphql-yoga'
