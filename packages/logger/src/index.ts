@@ -10,7 +10,7 @@ export const logger = createLogger({
             ignore: 'hostname,pid',
             levelFirst: true,
             messageFormat: false,
-            translateTime: `UTC:yyyy-mm-dd'T'HH:MM:ss'Z'`,
+            translateTime: true,
             singleLine: true,
           },
         },
