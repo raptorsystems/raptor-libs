@@ -9,7 +9,7 @@
   "exports": "./src/index.ts",
   "dependencies": {
     "@apollo/client": "^3.7.1",
-    "@graphql-tools/executor-http": "^0.0.3",
+    "@graphql-tools/executor-http": "^0.0.4",
     "@lifeomic/axios-fetch": "^3.0.1",
     "@nuxtjs/auth-next": "5.0.0-1648802546.c9880dc",
     "@raptor/utils": "workspace:*",
