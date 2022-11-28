@@ -18,7 +18,6 @@ export const graphqlYogaPublic: FastifyPluginCallback<{
       plugins: [
         useSentry({
           eventIdKey: null, // ! https://github.com/n1ru4l/envelop/issues/1394
-          trackResolvers: false, // ! https://github.com/n1ru4l/envelop/issues/1436
         }),
       ],
     },
