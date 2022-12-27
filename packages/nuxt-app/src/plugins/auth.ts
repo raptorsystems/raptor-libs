@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import type { Plugin } from '@nuxt/types'
 import type { UserInfo } from '../types'
 

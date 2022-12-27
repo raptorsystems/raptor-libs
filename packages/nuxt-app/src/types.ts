@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 /**
  * OpenID Connect claims for `scope=openid profile email`
  * https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims

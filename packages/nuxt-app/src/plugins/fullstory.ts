@@ -23,7 +23,6 @@ declare module '@nuxt/types' {
 }
 
 declare module 'vuex/types/index' {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   interface Store {
     $fullStory: typeof FullStory
