@@ -81,7 +81,6 @@ declare module 'vuex/types/index' {
     ready: boolean
     ask: Ask
   }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   interface Store {
     $beacon: BeaconPlugin

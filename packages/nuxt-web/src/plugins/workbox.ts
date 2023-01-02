@@ -8,8 +8,6 @@ export const workboxPlugin: Plugin = async ({ store }) => {
 
   workbox.addEventListener('installed', (event) => {
     if (!event.isUpdate) return
-
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     store.dispatch('pwa/updated')
   })
 }
