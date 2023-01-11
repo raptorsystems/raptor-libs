@@ -14,13 +14,13 @@
     "@fullstory/browser": "^1.6.2",
     "@nuxtjs/auth-next": "5.0.0-1648802546.c9880dc",
     "@nuxtjs/axios": "^5.13.6",
-    "@nuxtjs/sentry": "^7.0.0",
+    "@nuxtjs/sentry": "^7.0.2",
     "@raptor/nuxt-apollo": "workspace:*",
     "axios": "0.27.2"
   },
   "devDependencies": {
     "@nuxt/types": "2.15.8",
     "@raptor/eslint-config": "workspace:*",
-    "@sentry/types": "^7.28.1"
+    "@sentry/types": "^7.30.0"
   }
 }
