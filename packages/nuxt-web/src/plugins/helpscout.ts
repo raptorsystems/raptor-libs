@@ -50,12 +50,6 @@ export const helpscoutBeaconPlugin: HelpscoutBeaconPlugin =
     })
   }
 
-declare global {
-  interface Window {
-    onNuxtReady: (callback: () => void | Promise<void>) => void
-  }
-}
-
 declare module 'vue/types/vue' {
   interface BeaconPlugin extends Beacon {
     ready: boolean
