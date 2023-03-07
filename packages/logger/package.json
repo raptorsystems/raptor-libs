@@ -9,6 +9,6 @@
   "exports": "./src/index.ts",
   "dependencies": {
     "pino": "~8.8.0",
-    "pino-pretty": "^9.1.1"
+    "pino-pretty": "^9.4.0"
   }
 }

@@ -11,12 +11,12 @@
     "./src/types": "./src/types.ts"
   },
   "dependencies": {
-    "@sentry/node": "^7.30.0",
+    "@sentry/node": "^7.41.0",
     "graphql": "^16.6.0",
-    "graphql-yoga": "^3.3.0"
+    "graphql-yoga": "^3.7.2"
   },
   "devDependencies": {
-    "@sentry/types": "^7.30.0",
-    "prettier": "^2.8.2"
+    "@sentry/types": "^7.41.0",
+    "prettier": "^2.8.4"
   }
 }
