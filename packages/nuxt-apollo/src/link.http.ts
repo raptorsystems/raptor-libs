@@ -27,22 +27,21 @@ export const createHttpLink: CreateApolloHttpLink = ({
 }
 
 // Reimplement ExecutorLink
-// https://github.com/ardatan/graphql-tools/blob/af679198fbc598b6783ae22e2ed9d2421c97616d/packages/executors/apollo-link/src/index.ts
+// https://github.com/ardatan/graphql-tools/blob/c1a85885718f2cbc546a8a36506db55892565bf9/packages/executors/apollo-link/src/index.ts
 // Original implementation uses @apollo/client, which imports react. Reimplement using @apollo/client/core
 const createApolloRequestHandler =
   (executor: Executor): RequestHandler =>
   (operation) =>
     new Observable((observer) => {
-      Promise.resolve(
-        executor({
-          document: operation.query,
-          variables: operation.variables,
-          operationName: operation.operationName,
-          extensions: operation.extensions,
-          context: operation.getContext(),
-        }),
-      )
-        .then(async (results) => {
+      void Promise.resolve().then(async () => {
+        try {
+          const results = await executor({
+            document: operation.query,
+            variables: operation.variables,
+            operationName: operation.operationName,
+            extensions: operation.extensions,
+            context: operation.getContext(),
+          })
           if (isAsyncIterable(results)) {
             for await (const result of results) {
               if (observer.closed) return
@@ -53,12 +52,10 @@ const createApolloRequestHandler =
             observer.next(results)
             observer.complete()
           }
-        })
-        .catch((error) => {
-          if (!observer.closed) {
-            observer.error(error)
-          }
-        })
+        } catch (error) {
+          if (!observer.closed) observer.error(error)
+        }
+      })
     })
 
 export class ExecutorLink extends ApolloLink {

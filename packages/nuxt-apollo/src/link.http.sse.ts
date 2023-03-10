@@ -4,6 +4,7 @@ import {
   Observable,
   Operation,
 } from '@apollo/client/core'
+import { print } from 'graphql'
 import type { Client, ClientOptions } from 'graphql-sse'
 import { createClient } from 'graphql-sse'
 import type { CreateApolloHttpLink } from './types'
@@ -22,11 +23,14 @@ class SSELink extends ApolloLink {
 
   public request = (operation: Operation) =>
     new Observable<FetchResult>((sink) =>
-      this.client.subscribe<FetchResult>(operation, {
-        next: sink.next.bind(sink),
-        complete: sink.complete.bind(sink),
-        error: sink.error.bind(sink),
-      }),
+      this.client.subscribe<FetchResult>(
+        { ...operation, query: print(operation.query) },
+        {
+          next: sink.next.bind(sink),
+          complete: sink.complete.bind(sink),
+          error: sink.error.bind(sink),
+        },
+      ),
     )
 }
 
