@@ -53,6 +53,9 @@ export const createSSELink: CreateApolloHttpLink = ({
       )
       return { ...headers }
     },
+    onMessage: (message) => {
+      if (context.isDev) console.log(message.event, message.data)
+    },
   })
 
   return sseLink
