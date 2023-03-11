@@ -1,5 +1,5 @@
-import fs from 'node:fs/promises'
 import { GraphQLSchema, printSchema } from 'graphql'
+import fs from 'node:fs/promises'
 
 const safeImportPrettier = async () => {
   try {
