@@ -1,4 +1,4 @@
-import { HttpLink } from '@apollo/client/core'
+import { BatchHttpLink } from '@apollo/client/link/batch-http'
 import type { CreateApolloHttpLink } from './types'
 import { axiosFetch } from './utils/axios'
 
@@ -19,7 +19,11 @@ export const createHttpLink: CreateApolloHttpLink = ({
     }),
   )
 
-  // Use buildHTTPExecutor with YogaLink as ref
-  // https://github.com/dotansimha/graphql-yoga/blob/14bc965442b0b2b76b22b215c616ac27fe4dc455/packages/client/apollo-link/src/index.ts
-  return new HttpLink({ uri: endpoint, fetch })
+  return new BatchHttpLink({
+    uri: endpoint,
+    fetch,
+    batchMax: 10,
+    batchInterval: 20,
+    batchDebounce: true,
+  })
 }

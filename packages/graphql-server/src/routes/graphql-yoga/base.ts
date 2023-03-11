@@ -44,6 +44,7 @@ export const useYogaFastifyServer = <Context extends BaseContext>(
       } satisfies Plugin<Context>,
       ...(options.plugins as [Plugin<Context>]),
     ],
+    batching: { limit: 10 },
   })
   return {
     registerRoute: (url: string) => {
