@@ -1,11 +1,11 @@
-import type { ApolloLink } from '@apollo/client/core'
-import type { HTTPExecutorOptions } from '@graphql-tools/executor-http'
+import type { ApolloLink, HttpOptions } from '@apollo/client/core'
 import type { Context } from '@nuxt/types'
 
 export type ContextHeaders = (ctx: Context) => Record<string, string>
 
 export type CreateApolloHttpLink = (
-  options: HTTPExecutorOptions & {
+  options: Omit<HttpOptions, 'uri'> & {
+    url: string
     context: Context
     ctxHeaders?: ContextHeaders
   },

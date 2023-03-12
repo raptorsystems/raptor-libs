@@ -7,8 +7,8 @@ export const createHttpLink: CreateApolloHttpLink = ({
   ctxHeaders,
   ...options
 }) => {
-  const endpoint = options?.endpoint ?? (context.$config.apiURL as string)
-  if (!endpoint) throw new Error('Missing HttpLink `endpoint`')
+  const url = options?.url ?? (context.$config.apiURL as string)
+  if (!url) throw new Error('Missing HttpLink `url`')
 
   const fetch = axiosFetch(
     () => context.$axios,
@@ -20,7 +20,7 @@ export const createHttpLink: CreateApolloHttpLink = ({
   )
 
   return new BatchHttpLink({
-    uri: endpoint,
+    uri: url,
     fetch,
     batchMax: 10,
     batchInterval: 20,
