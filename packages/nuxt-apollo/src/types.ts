@@ -5,7 +5,7 @@ export type ContextHeaders = (ctx: Context) => Record<string, string>
 
 export type CreateApolloHttpLink = (
   options: Omit<HttpOptions, 'uri'> & {
-    url: string
+    url?: string
     context: Context
     ctxHeaders?: ContextHeaders
   },
