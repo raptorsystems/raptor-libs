@@ -11,16 +11,16 @@
     "./plugins/*": "./src/plugins/*.ts"
   },
   "dependencies": {
-    "@fullstory/browser": "^1.7.0",
+    "@fullstory/browser": "^1.7.1",
     "@nuxtjs/auth-next": "5.0.0-1648802546.c9880dc",
     "@nuxtjs/axios": "^5.13.6",
-    "@nuxtjs/sentry": "^7.1.7",
+    "@nuxtjs/sentry": "^7.1.10",
     "@raptor/nuxt-apollo": "workspace:*",
     "axios": "0.27.2"
   },
   "devDependencies": {
     "@nuxt/types": "2.16.3",
     "@raptor/eslint-config": "workspace:*",
-    "@sentry/types": "^7.45.0"
+    "@sentry/types": "^7.46.0"
   }
 }
