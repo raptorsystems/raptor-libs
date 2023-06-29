@@ -8,6 +8,6 @@ module.exports = {
     // Base ESLint recommended rules
     'eslint:recommended',
     // Prettier
-    'plugin:prettier/recommended',
+    'prettier',
   ],
 }

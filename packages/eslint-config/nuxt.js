@@ -12,7 +12,7 @@ module.exports = {
     // https://github.com/vuetifyjs/eslint-plugin-vuetify
     'plugin:vuetify/recommended',
     // Prettier
-    'plugin:prettier/recommended',
+    'prettier',
   ],
   rules: {
     // vue
