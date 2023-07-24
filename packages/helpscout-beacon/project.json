@@ -1,9 +1,10 @@
 {
   "name": "raptor-helpscout-beacon",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["raptor/packages/helpscout-beacon/**/*.ts"]
       },
