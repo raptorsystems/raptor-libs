@@ -20,6 +20,6 @@
     "@yarnpkg/fslib": "^2.10.3",
     "@yarnpkg/plugin-pack": "^3.2.0",
     "@yarnpkg/plugin-patch": "^3.2.4",
-    "typescript": "~5.0.3"
+    "typescript": "~5.1.6"
   }
 }
