@@ -6,8 +6,10 @@ module.exports = {
   },
   extends: [
     // Nuxt
-    // https://typescript.nuxtjs.org/guide/lint.html#lint
-    '@nuxtjs/eslint-config-typescript',
+    // https://github.com/nuxt/eslint-config
+    '@nuxt/eslint-config',
+    // @nuxt/eslint-config only includes plugin:vue/vue3-recommended
+    'plugin:vue/recommended',
     // Vuetify
     // https://github.com/vuetifyjs/eslint-plugin-vuetify
     'plugin:vuetify/recommended',
@@ -17,7 +19,5 @@ module.exports = {
   rules: {
     // vue
     'vue/html-self-closing': ['error', { html: { void: 'always' } }],
-    'vue/multi-word-component-names': 'off',
-    'vue/no-v-text-v-html-on-component': 'off',
   },
 }
