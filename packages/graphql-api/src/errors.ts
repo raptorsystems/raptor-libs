@@ -52,12 +52,12 @@ export class UserInputError extends GraphQLError {
 export function toGraphQLError(
   error: Error & { extensions?: Record<string, unknown> },
   code = 'INTERNAL_SERVER_ERROR',
-): Error & { extensions: Record<string, any> } {
+): Error & { extensions: Record<string, unknown> } {
   const err = error
   if (err.extensions) {
     err.extensions.code = code
   } else {
     err.extensions = { code }
   }
-  return err as Error & { extensions: Record<string, any> }
+  return err as Error & { extensions: Record<string, unknown> }
 }
