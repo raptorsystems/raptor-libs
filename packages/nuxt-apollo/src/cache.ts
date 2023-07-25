@@ -7,7 +7,7 @@ import type {
 } from '@apollo/client/cache'
 import { notNullish } from '@raptor/utils'
 
-type KeyArgs = FieldPolicy<any>['keyArgs']
+type KeyArgs = FieldPolicy<unknown>['keyArgs']
 
 type Args =
   | { id?: string }

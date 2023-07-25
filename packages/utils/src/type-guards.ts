@@ -38,6 +38,7 @@ export const asError = (err: unknown): Error => {
 
 const errorMessage = (obj: Record<string, unknown>): string => {
   if (typeof obj.message === 'string') return obj.message
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   if (obj.toString !== Object.prototype.toString) return obj.toString()
   try {
     return JSON.stringify(obj)
