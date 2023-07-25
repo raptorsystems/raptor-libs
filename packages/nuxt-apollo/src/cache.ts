@@ -20,6 +20,7 @@ export const readOne =
     __typename: string,
   ): FieldReadFunction<T, T | Reference, FieldFunctionOptions<Args>> =>
   (existingData, { args, toReference }) => {
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     if (existingData || !args) return existingData
     const id =
       'id' in args ? args.id : 'where' in args ? args.where?.id : undefined
@@ -39,6 +40,7 @@ export const readMany =
     FieldFunctionOptions<Args>
   > =>
   (existingData, { args, toReference }) => {
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     if (existingData || !args) return existingData
     const id =
       'id' in args ? args.id : 'where' in args ? args.where?.id : undefined

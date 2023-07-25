@@ -22,7 +22,7 @@ export const getJwksClient = (domain: string): JwksClient =>
 
 export function getToken(headers: UserHeaders): string {
   // get auth header
-  const authorization = headers['authorization']
+  const authorization = headers.authorization
   if (!authorization)
     throw new createError.Unauthorized('Missing `authorization` header')
   if (Array.isArray(authorization))
