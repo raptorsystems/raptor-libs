@@ -11,6 +11,7 @@ module.exports = {
     // ESLint typescript rules
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#usage
     'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/stylistic',
     // Prettier
     'prettier',
   ],
@@ -22,6 +23,7 @@ module.exports = {
     // eslint
     'require-atomic-updates': 'off',
     // @typescript-eslint
+    '@typescript-eslint/consistent-type-definitions': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',
     '@typescript-eslint/no-unused-vars': [
