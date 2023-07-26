@@ -51,11 +51,11 @@ export const getSecret =
     return key.getPublicKey()
   }
 
-export const verifyToken = async <T extends Record<string, unknown>>(
+export const verifyToken = async (
   token: string,
   audience: string,
   getSecret: GetSecret,
-): Promise<T> => {
+) => {
   // decode token
   const decoded = jwt.decode(token, { complete: true })
   if (!decoded || typeof decoded === 'string')
@@ -71,7 +71,10 @@ export const verifyToken = async <T extends Record<string, unknown>>(
 
   // verify token
   try {
-    return jwt.verify(token, secret, { algorithms: ['RS256'], audience }) as T
+    return jwt.verify(token, secret, {
+      algorithms: ['RS256'],
+      audience,
+    }) as UserPayload
   } catch (error) {
     let message = 'Invalid token'
     if (error instanceof jwt.JsonWebTokenError)
