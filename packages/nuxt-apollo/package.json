@@ -14,7 +14,7 @@
     "@raptor/utils": "workspace:*",
     "axios": "0.27.2",
     "graphql": "^15.8.0",
-    "graphql-sse": "^2.2.0",
+    "graphql-sse": "^2.2.1",
     "graphql-tag": "^2.12.6",
     "vue-apollo": "^3.1.0"
   },
