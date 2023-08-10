@@ -56,7 +56,7 @@ export const createSSELink: CreateApolloHttpLink = ({
     onMessage: (message) => {
       if (context.isDev) console.log(message.event, message.data)
     },
-    retryAttempts: 10,
+    retryAttempts: Infinity,
   })
 
   return sseLink
