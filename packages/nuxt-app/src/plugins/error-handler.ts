@@ -1,7 +1,6 @@
 import type { NuxtError, Plugin } from '@nuxt/types'
 import type { ApolloError } from '@raptor/nuxt-apollo'
 import type { CaptureContext } from '@sentry/types'
-import * as Sentry from '@sentry/vue'
 
 type NullableError = NuxtError | ApolloError | null | undefined
 type ErrorCode = string | number
@@ -56,7 +55,7 @@ const hasCodeRegex = (error: NullableError, pattern: string | RegExp) =>
     value ? new RegExp(pattern).test(value.toString()) : false,
   )
 
-export const errorHandlerPlugin: Plugin = ({ isDev }, inject) => {
+export const errorHandlerPlugin: Plugin = ({ $sentry, isDev }, inject) => {
   const handler: ErrorHandler = {
     hasCode: hasCodeEquals,
 
@@ -86,19 +85,19 @@ export const errorHandlerPlugin: Plugin = ({ isDev }, inject) => {
 
     capture(error, captureContext) {
       if (isDev) console.error(error, captureContext)
-      if (!error) return
+      if (!error || !$sentry) return
       // ignore expected errors
       if (this.isUnauthorized(error)) return
       // capture graphQLErrors
       if (error.graphQLErrors) {
         for (const graphQLError of error.graphQLErrors) {
           if (!graphQLError.extensions?.reported)
-            return Sentry.captureException(graphQLError, captureContext)
+            return $sentry.captureException(graphQLError, captureContext)
         }
       }
       // capture networkError
       if (error.networkError) {
-        return Sentry.captureException(error.networkError)
+        return $sentry.captureException(error.networkError)
       }
     },
   }
