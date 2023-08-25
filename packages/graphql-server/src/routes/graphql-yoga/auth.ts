@@ -1,5 +1,9 @@
 import { useSentry } from '@envelop/sentry'
-import type { AuthContext, AuthContextFactory } from '@raptor/graphql-api'
+import type {
+  AuthContext,
+  AuthContextFactory,
+  PartialContextFactory,
+} from '@raptor/graphql-api'
 import type { FastifyPluginCallback } from 'fastify'
 import type { GraphQLSchema } from 'graphql'
 import { useYogaFastifyServer } from './base'
@@ -8,15 +12,15 @@ export const graphqlYogaAuth: FastifyPluginCallback<{
   schema: GraphQLSchema
   graphiql?: boolean
   contextFactory: AuthContextFactory
-}> = (instance, { schema, graphiql, contextFactory }, done) => {
+  subscriptionsPartialContextFactory?: PartialContextFactory<AuthContext>
+}> = (instance, { contextFactory, ...options }, done) => {
   instance.addHook('preValidation', async (req) => {
     const token = instance.auth0.getToken(req.headers)
     await instance.auth0.verifyToken(token)
   })
 
   const { registerRoute } = useYogaFastifyServer<AuthContext>(instance, {
-    schema,
-    graphiql,
+    ...options,
     contextFactory: ({ req, ...args }) => {
       const token = instance.auth0.getToken(req.headers)
       const payload = instance.auth0.decodeToken(token)

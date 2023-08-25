@@ -1,3 +1,7 @@
+import {
+  ContextFactoryOptions,
+  useExtendContextValuePerExecuteSubscriptionEvent,
+} from '@envelop/execute-subscription-event'
 import { useGraphQLSSE } from '@graphql-yoga/plugin-graphql-sse'
 import type { BaseContext } from '@raptor/graphql-api'
 import { setContext } from '@raptor/graphql-api'
@@ -24,6 +28,9 @@ type Options<Context> = Omit<
   contextFactory: (
     serverContext: YogaInitialContext & FastifyServerContext,
   ) => Context
+  subscriptionsPartialContextFactory?: (
+    options: ContextFactoryOptions,
+  ) => Partial<Context>
 }
 
 export const useYogaFastifyServer = <Context extends BaseContext>(
@@ -51,6 +58,10 @@ export const useYogaFastifyServer = <Context extends BaseContext>(
       useGraphQLSSE({
         endpoint: '/stream',
       }),
+      useExtendContextValuePerExecuteSubscriptionEvent((opts) => ({
+        contextPartial:
+          options.subscriptionsPartialContextFactory?.(opts) ?? {},
+      })),
       ...(options.plugins as [Plugin<Context>]),
     ],
     batching: { limit: 10 },

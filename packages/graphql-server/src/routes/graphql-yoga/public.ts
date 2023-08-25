@@ -1,5 +1,9 @@
 import { useSentry } from '@envelop/sentry'
-import type { BaseContext, BaseContextFactory } from '@raptor/graphql-api'
+import type {
+  BaseContext,
+  BaseContextFactory,
+  PartialContextFactory,
+} from '@raptor/graphql-api'
 import type { FastifyPluginCallback } from 'fastify'
 import type { GraphQLSchema } from 'graphql'
 import { useYogaFastifyServer } from './base'
@@ -8,11 +12,10 @@ export const graphqlYogaPublic: FastifyPluginCallback<{
   schema: GraphQLSchema
   graphiql?: boolean
   contextFactory: BaseContextFactory
-}> = (instance, { schema, graphiql, contextFactory }, done) => {
+  subscriptionsPartialContextFactory?: PartialContextFactory<BaseContext>
+}> = (instance, options, done) => {
   const { registerRoute } = useYogaFastifyServer<BaseContext>(instance, {
-    schema,
-    graphiql,
-    contextFactory,
+    ...options,
     plugins: [
       useSentry({
         eventIdKey: null, // ! https://github.com/n1ru4l/envelop/issues/1394

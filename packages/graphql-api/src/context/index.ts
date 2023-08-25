@@ -25,6 +25,9 @@ export type BaseContextFactory<Context extends BaseContext = BaseContext> = (
   initialContext: YogaInitialContext,
 ) => Context
 
+export type PartialContextFactory<Context extends BaseContext = BaseContext> =
+  () => Partial<Context>
+
 export * from './global'
 
 export const context = global.context
