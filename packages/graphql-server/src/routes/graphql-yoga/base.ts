@@ -1,3 +1,4 @@
+import { useGraphQLSSE } from '@graphql-yoga/plugin-graphql-sse'
 import type { BaseContext } from '@raptor/graphql-api'
 import { setContext } from '@raptor/graphql-api'
 import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
@@ -15,14 +16,19 @@ type FastifyServerContext = {
   reply: FastifyReply
 }
 
+type Options<Context> = Omit<
+  YogaServerOptions<FastifyServerContext, Context>,
+  'schema'
+> & {
+  schema: GraphQLSchema
+  contextFactory: (
+    serverContext: YogaInitialContext & FastifyServerContext,
+  ) => Context
+}
+
 export const useYogaFastifyServer = <Context extends BaseContext>(
   instance: FastifyInstance,
-  options: Omit<YogaServerOptions<FastifyServerContext, Context>, 'schema'> & {
-    schema: GraphQLSchema
-    contextFactory: (
-      serverContext: YogaInitialContext & FastifyServerContext,
-    ) => Context
-  },
+  options: Options<Context>,
 ) => {
   const yogaServer = createYoga<FastifyServerContext, Context>({
     ...options,
@@ -42,6 +48,9 @@ export const useYogaFastifyServer = <Context extends BaseContext>(
           setContext(context)
         },
       } satisfies Plugin<Context>,
+      useGraphQLSSE({
+        endpoint: '/stream',
+      }),
       ...(options.plugins as [Plugin<Context>]),
     ],
     batching: { limit: 10 },

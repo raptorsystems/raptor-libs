@@ -1,5 +1,4 @@
 import { useSentry } from '@envelop/sentry'
-import { useGraphQLSSE } from '@graphql-yoga/plugin-graphql-sse'
 import type { AuthContext, AuthContextFactory } from '@raptor/graphql-api'
 import type { FastifyPluginCallback } from 'fastify'
 import type { GraphQLSchema } from 'graphql'
@@ -36,9 +35,6 @@ export const graphqlYogaAuth: FastifyPluginCallback<{
           scope.setExtra('user', context.user.payload)
         },
         eventIdKey: null, // ! https://github.com/n1ru4l/envelop/issues/1394
-      }),
-      useGraphQLSSE({
-        endpoint: '/stream',
       }),
     ],
   })
