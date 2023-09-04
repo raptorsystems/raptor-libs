@@ -15,11 +15,11 @@
   },
   "devDependencies": {
     "@yarnpkg/builder": "^3.3.0",
-    "@yarnpkg/cli": "^3.6.2",
+    "@yarnpkg/cli": "^3.6.3",
     "@yarnpkg/core": "^3.5.3",
     "@yarnpkg/fslib": "^2.10.3",
     "@yarnpkg/plugin-pack": "^3.2.0",
     "@yarnpkg/plugin-patch": "^3.2.4",
-    "typescript": "~5.1.6"
+    "typescript": "~5.2.2"
   }
 }

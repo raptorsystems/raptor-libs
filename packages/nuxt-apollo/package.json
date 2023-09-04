@@ -8,14 +8,15 @@
   "main": "src",
   "exports": "./src/index.ts",
   "dependencies": {
-    "@apollo/client": "^3.8.1",
+    "@apollo/client": "^3.8.2",
     "@lifeomic/axios-fetch": "^3.0.1",
     "@nuxtjs/auth-next": "5.0.0-1648802546.c9880dc",
     "@raptor/utils": "workspace:*",
     "axios": "0.27.2",
     "graphql": "^15.8.0",
-    "graphql-sse": "^2.2.1",
+    "graphql-sse": "^2.2.3",
     "graphql-tag": "^2.12.6",
+    "pusher-js": "^8.3.0",
     "vue-apollo": "^3.1.0"
   },
   "devDependencies": {
