@@ -1,4 +1,4 @@
-import type { ApolloError } from '@apollo/client/core'
+import type { ApolloError } from '@apollo/client/errors'
 import type { Context } from '@nuxt/types'
 
 export const errorHandler = (ctx: Context) => (error: ApolloError) => {
@@ -7,7 +7,7 @@ export const errorHandler = (ctx: Context) => (error: ApolloError) => {
   ctx.error(error)
 }
 
-export { ApolloError }
+export type { ApolloError }
 
 export default errorHandler
 
