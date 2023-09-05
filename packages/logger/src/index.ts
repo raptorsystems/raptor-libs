@@ -1,4 +1,4 @@
-import { createLogger, isDevelopment } from './logger'
+import { createLogger, isDevelopment } from './logger.ts'
 
 export const logger = createLogger({
   options: isDevelopment

@@ -1,2 +1,2 @@
-export * from './plugins'
-export * from './routes'
+export * from './plugins/index.ts'
+export * from './routes/index.ts'

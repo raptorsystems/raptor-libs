@@ -1,5 +1,5 @@
-import { AuthenticationError } from '../errors'
-import type { UserData, UserHeaders, UserPayload } from '../types'
+import { AuthenticationError } from '../errors.ts'
+import type { UserData, UserHeaders, UserPayload } from '../types.ts'
 
 export class UserService<
   AppMetadata = unknown,

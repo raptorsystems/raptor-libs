@@ -2,7 +2,7 @@
 // https://github.com/redwoodjs/redwood/blob/main/packages/api/src/logger/index.ts
 
 import type P from 'pino'
-import pino from 'pino'
+import { pino } from 'pino'
 
 /**
  * Types from Pino

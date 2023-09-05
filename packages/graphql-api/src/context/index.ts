@@ -1,9 +1,9 @@
 import { YogaInitialContext } from 'graphql-yoga'
-import { SentryService } from '../services/sentry.service'
-import { UserService } from '../services/user.service'
-import { UserHeaders, UserPayload } from '../types'
-import type { GlobalContext } from './global'
-import * as global from './global'
+import { SentryService } from '../services/sentry.service.ts'
+import { UserService } from '../services/user.service.ts'
+import { UserHeaders, UserPayload } from '../types.ts'
+import type { GlobalContext } from './global.ts'
+import * as global from './global.ts'
 
 export type BaseContext = GlobalContext
 
@@ -28,6 +28,6 @@ export type BaseContextFactory<Context extends BaseContext = BaseContext> = (
 export type PartialContextFactory<Context extends BaseContext = BaseContext> =
   () => Partial<Context>
 
-export * from './global'
+export * from './global.ts'
 
 export const context = global.context

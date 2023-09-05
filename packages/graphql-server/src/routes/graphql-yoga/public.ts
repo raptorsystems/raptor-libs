@@ -6,7 +6,7 @@ import type {
 } from '@raptor/graphql-api'
 import type { FastifyPluginCallback } from 'fastify'
 import type { GraphQLSchema } from 'graphql'
-import { useYogaFastifyServer } from './base'
+import { useYogaFastifyServer } from './base.ts'
 
 export const graphqlYogaPublic: FastifyPluginCallback<{
   schema: GraphQLSchema

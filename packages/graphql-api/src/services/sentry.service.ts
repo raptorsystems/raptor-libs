@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/node'
 import type { CaptureContext, Scope, SeverityLevel } from '@sentry/types'
-import { GraphQLError } from '../errors'
-import { UserPayload } from '../types'
+import { GraphQLError } from '../errors.ts'
+import { UserPayload } from '../types.ts'
 
 export class SentryService {
   private instance: typeof Sentry

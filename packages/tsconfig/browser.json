@@ -3,7 +3,9 @@
   "display": "Browser",
   "extends": "./base.json",
   "compilerOptions": {
+    "module": "ESNext",
     "target": "ES2022",
+    "moduleResolution": "Node",
     "lib": ["ES2022", "DOM"]
   }
 }

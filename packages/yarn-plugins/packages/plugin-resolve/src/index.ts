@@ -1,6 +1,6 @@
 import { Plugin } from '@yarnpkg/core'
 
-import resolve from './commands/resolve'
+import resolve from './commands/resolve.ts'
 
 const plugin: Plugin = {
   commands: [resolve],

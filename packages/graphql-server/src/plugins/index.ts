@@ -1,3 +1,3 @@
-export { auth0Plugin } from './auth0'
-export { errorHandlerPlugin } from './errorHandler'
-export { apiRequestContextPlugin } from './requestContext'
+export { auth0Plugin } from './auth0.ts'
+export { errorHandlerPlugin } from './errorHandler.ts'
+export { apiRequestContextPlugin } from './requestContext.ts'

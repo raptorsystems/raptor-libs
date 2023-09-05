@@ -9,17 +9,17 @@ import {
 import { npath, ppath, toFilename, xfs } from '@yarnpkg/fslib'
 import { patchUtils } from '@yarnpkg/plugin-patch'
 import { Command, Option } from 'clipanion'
-import copyAdditional from '../utils/copyAdditional'
-import copyCacheMarkedFiles from '../utils/copyCacheMarkedFiles'
-import copyManifests from '../utils/copyManifests'
-import copyPlugins from '../utils/copyPlugins'
-import copyProtocolFiles from '../utils/copyProtocolFiles'
-import copyRcFile from '../utils/copyRcFile'
-import copyYarnRelease from '../utils/copyYarnRelease'
-import { parseSpec } from '../utils/execUtils'
-import generateLockfile from '../utils/generateLockfile'
-import getRequiredWorkspaces from '../utils/getRequiredWorkspaces'
-import packWorkspace from '../utils/packWorkspace'
+import copyAdditional from '../utils/copyAdditional.ts'
+import copyCacheMarkedFiles from '../utils/copyCacheMarkedFiles.ts'
+import copyManifests from '../utils/copyManifests.ts'
+import copyPlugins from '../utils/copyPlugins.ts'
+import copyProtocolFiles from '../utils/copyProtocolFiles.ts'
+import copyRcFile from '../utils/copyRcFile.ts'
+import copyYarnRelease from '../utils/copyYarnRelease.ts'
+import { parseSpec } from '../utils/execUtils.ts'
+import generateLockfile from '../utils/generateLockfile.ts'
+import getRequiredWorkspaces from '../utils/getRequiredWorkspaces.ts'
+import packWorkspace from '../utils/packWorkspace.ts'
 
 export default class DockerPackCommand extends BaseCommand {
   public workspaceName: string = Option.String()
@@ -129,7 +129,7 @@ export default class DockerPackCommand extends BaseCommand {
             parseDescriptor: (descriptor) => {
               if (descriptor.range.startsWith('exec:')) {
                 const parsed = parseSpec(descriptor.range)
-                if (!parsed || !parsed.parentLocator) return
+                if (!parsed?.parentLocator) return
                 return {
                   parentLocator: parsed.parentLocator,
                   paths: [parsed.path],

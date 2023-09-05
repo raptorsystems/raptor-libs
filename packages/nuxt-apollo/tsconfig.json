@@ -1,4 +1,4 @@
 {
-  "extends": "@raptor/tsconfig/browser.json",
+  "extends": "@raptor/tsconfig/nuxt.json",
   "include": ["src", "typings", ".eslintrc.cjs"]
 }

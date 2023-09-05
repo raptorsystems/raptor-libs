@@ -1,2 +1,2 @@
-export * from './decimal'
-export * from './types'
+export * from './decimal.ts'
+export * from './types.ts'

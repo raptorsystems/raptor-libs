@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Default",
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "NodeNext",
     "composite": false,
     "declaration": true,
     "declarationMap": true,
@@ -10,7 +10,8 @@
     "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
     "isolatedModules": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
