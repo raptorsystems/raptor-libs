@@ -4,6 +4,7 @@ import type {
   FieldPolicy,
   FieldReadFunction,
   Reference,
+  StoreObject,
 } from '@apollo/client/cache'
 import { notNullish } from '@raptor/utils'
 
@@ -99,4 +100,26 @@ export const skipTakePagination = <T>(
     read: readMany(__typename),
     merge: skipTakeMerge(),
   }
+}
+
+export const mergeArrays: FieldMergeFunction<
+  (Reference | StoreObject)[] | undefined,
+  (Reference | StoreObject)[] | undefined
+> = (existing = [], incoming = [], { toReference, mergeObjects }) => {
+  const merged = [...existing]
+  const existingMap = new Map<string, Reference | StoreObject>()
+
+  existing.forEach((item) => {
+    const { __ref } = toReference(item) ?? {}
+    if (__ref) existingMap.set(__ref, item)
+  })
+
+  incoming.forEach((incoming, index) => {
+    const { __ref } = toReference(incoming) ?? {}
+    const existing = __ref ? existingMap.get(__ref) : undefined
+    if (existing) merged[index] = mergeObjects(existing, incoming)
+    else merged.push(incoming)
+  })
+
+  return merged
 }
