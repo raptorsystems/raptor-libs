@@ -3,6 +3,7 @@
   "display": "Default",
   "compilerOptions": {
     "module": "NodeNext",
+    "noEmit": true,
     "composite": false,
     "declaration": true,
     "declarationMap": true,
