@@ -15,7 +15,7 @@
     "find-config": "^1.0.0"
   },
   "devDependencies": {
-    "@types/find-config": "^1.0.1",
+    "@types/find-config": "^1.0.2",
     "@yarnpkg/builder": "^3.3.0",
     "@yarnpkg/core": "^3.5.3",
     "typescript": "~5.2.2"

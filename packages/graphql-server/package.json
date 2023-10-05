@@ -8,23 +8,23 @@
   "main": "src",
   "exports": "./src/index.ts",
   "dependencies": {
-    "@envelop/core": "^4.0.1",
-    "@envelop/execute-subscription-event": "^4.0.1",
-    "@envelop/sentry": "^6.0.1",
-    "@graphql-yoga/plugin-graphql-sse": "^2.0.4",
+    "@envelop/core": "^4.0.3",
+    "@envelop/execute-subscription-event": "^4.0.3",
+    "@envelop/sentry": "^6.0.3",
+    "@graphql-yoga/plugin-graphql-sse": "^2.0.5",
     "@raptor/graphql-api": "workspace:*",
-    "@sentry/node": "^7.66.0",
-    "fastify": "^4.22.2",
+    "@sentry/node": "^7.73.0",
+    "fastify": "^4.23.2",
     "fastify-plugin": "^4.5.1",
-    "graphql": "^16.8.0",
-    "graphql-sse": "^2.2.3",
-    "graphql-yoga": "^4.0.4",
+    "graphql": "^16.8.1",
+    "graphql-sse": "^2.3.0",
+    "graphql-yoga": "^4.0.5",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
     "jwks-rsa": "^3.0.1"
   },
   "devDependencies": {
-    "@types/http-errors": "^2.0.1",
-    "@types/jsonwebtoken": "^9.0.2"
+    "@types/http-errors": "^2.0.2",
+    "@types/jsonwebtoken": "^9.0.3"
   }
 }
