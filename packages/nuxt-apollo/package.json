@@ -16,7 +16,6 @@
     "graphql": "^15.8.0",
     "graphql-sse": "^2.3.0",
     "graphql-tag": "^2.12.6",
-    "pusher-js": "^8.3.0",
     "vue-apollo": "^3.1.1"
   },
   "devDependencies": {

@@ -19,7 +19,6 @@
     "@yarnpkg/core": "^3.5.4",
     "@yarnpkg/fslib": "^2.10.3",
     "@yarnpkg/plugin-pack": "^3.2.0",
-    "@yarnpkg/plugin-patch": "^3.2.4",
-    "typescript": "~5.2.2"
+    "@yarnpkg/plugin-patch": "^3.2.4"
   }
 }

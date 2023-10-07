@@ -16,7 +16,6 @@
   "devDependencies": {
     "@yarnpkg/builder": "^3.3.0",
     "@yarnpkg/cli": "^3.6.4",
-    "@yarnpkg/core": "^3.5.4",
-    "typescript": "~5.2.2"
+    "@yarnpkg/core": "^3.5.4"
   }
 }
