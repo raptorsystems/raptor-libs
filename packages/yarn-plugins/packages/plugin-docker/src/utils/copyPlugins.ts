@@ -1,5 +1,5 @@
-import { PortablePath, xfs, toFilename, ppath } from '@yarnpkg/fslib'
 import { Project, Report } from '@yarnpkg/core'
+import { PortablePath, ppath, xfs } from '@yarnpkg/fslib'
 
 export default async function copyPlugins({
   destination,
@@ -10,7 +10,7 @@ export default async function copyPlugins({
   project: Project
   report: Report
 }): Promise<void> {
-  const pluginDir = ppath.join(toFilename('.yarn'), toFilename('plugins'))
+  const pluginDir = ppath.join('.yarn', 'plugins')
 
   report.reportInfo(null, pluginDir)
   await xfs.copyPromise(

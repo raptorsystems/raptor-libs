@@ -6,7 +6,7 @@ import {
   StreamReport,
   structUtils,
 } from '@yarnpkg/core'
-import { npath, ppath, toFilename, xfs } from '@yarnpkg/fslib'
+import { npath, ppath, xfs } from '@yarnpkg/fslib'
 import { patchUtils } from '@yarnpkg/plugin-patch'
 import { Command, Option } from 'clipanion'
 import copyAdditional from '../utils/copyAdditional.ts'
@@ -94,8 +94,8 @@ export default class DockerPackCommand extends BaseCommand {
           await xfs.removePromise(buildDir, { recursive: true })
         })
 
-        const manifestDir = ppath.join(buildDir, toFilename('manifests'))
-        const packDir = ppath.join(buildDir, toFilename('packs'))
+        const manifestDir = ppath.join(buildDir, 'manifests')
+        const packDir = ppath.join(buildDir, 'packs')
 
         await report.startTimerPromise('Copy files', async () => {
           await copyRcFile({
