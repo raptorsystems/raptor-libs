@@ -4,8 +4,8 @@
   "extends": "./base.json",
   "compilerOptions": {
     "module": "ESNext",
-    "target": "ES2022",
+    "target": "ESNext",
     "moduleResolution": "Node",
-    "lib": ["ES2022", "DOM"]
+    "lib": ["ESNext", "DOM"]
   }
 }
