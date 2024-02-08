@@ -14,7 +14,7 @@ import { RequestHandler } from './utils/auth'
 // Ref: https://github.com/enisdenjo/graphql-sse
 
 class SSELink extends ApolloLink {
-  private client: Client
+  private client: Client<true>
 
   constructor(options: ClientOptions<true>) {
     super()

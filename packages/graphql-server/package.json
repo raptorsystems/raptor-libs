@@ -10,13 +10,13 @@
   "dependencies": {
     "@envelop/execute-subscription-event": "^5.0.0",
     "@envelop/sentry": "^7.0.0",
-    "@graphql-yoga/plugin-graphql-sse": "^3.0.0",
+    "@graphql-yoga/plugin-graphql-sse": "^3.1.1",
     "@raptor/graphql-api": "workspace:*",
     "@sentry/node": "^7.100.1",
     "fastify": "^4.26.0",
     "fastify-plugin": "^4.5.1",
     "graphql": "^16.8.1",
-    "graphql-yoga": "^5.0.0",
+    "graphql-yoga": "^5.1.1",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
     "jwks-rsa": "^3.1.0"
