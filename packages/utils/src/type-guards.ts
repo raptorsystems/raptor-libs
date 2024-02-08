@@ -13,6 +13,13 @@ export const isNullish = (value?: unknown): value is Nullish =>
 export const notNullish = <T>(value?: T): value is NonNullish<T> =>
   !isNullish(value)
 
+// https://dev.to/matiasfha/typescript-how-to-create-a-non-empty-array-type-3akf
+
+export type NonEmptyArray<T> = [T, ...T[]]
+
+export const isNonEmpty = <T>(arr: T[]): arr is NonEmptyArray<T> =>
+  arr.length > 0
+
 // https://www.npmjs.com/package/catch-unknown
 
 export const isError = <T extends Error>(err: unknown): err is T => {
