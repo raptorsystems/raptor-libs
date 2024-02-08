@@ -11,11 +11,11 @@
     "build": "builder build plugin && yarn plugin import ./bundles/@yarnpkg/plugin-resolve.js"
   },
   "dependencies": {
-    "clipanion": "^4.0.0-rc.2"
+    "clipanion": "^4.0.0-rc.3"
   },
   "devDependencies": {
     "@yarnpkg/builder": "^4.0.0",
-    "@yarnpkg/cli": "^4.0.1",
-    "@yarnpkg/core": "^4.0.1"
+    "@yarnpkg/cli": "^4.1.0",
+    "@yarnpkg/core": "^4.0.3"
   }
 }

@@ -17,6 +17,6 @@
   "devDependencies": {
     "@types/find-config": "^1.0.4",
     "@yarnpkg/builder": "^4.0.0",
-    "@yarnpkg/core": "^4.0.1"
+    "@yarnpkg/core": "^4.0.3"
   }
 }
