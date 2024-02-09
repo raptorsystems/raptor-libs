@@ -32,11 +32,10 @@ export const graphqlYogaAuth: FastifyPluginCallback<{
       })
     },
     plugins: [
-      useSentry({
-        configureScope: ({ contextValue }, scope) => {
-          const context = contextValue as AuthContext
-          scope.setUser({ id: context.user.userId })
-          scope.setExtra('user', context.user.payload)
+      useSentry<AuthContext>({
+        configureScope: ({ contextValue: { user } }, scope) => {
+          scope.setUser({ id: user.userId })
+          scope.setExtra('user', user.payload)
         },
         eventIdKey: null, // ! https://github.com/n1ru4l/envelop/issues/1394
       }),
