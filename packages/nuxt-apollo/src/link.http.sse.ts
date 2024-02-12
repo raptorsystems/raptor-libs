@@ -47,6 +47,7 @@ export const createSSELink: CreateApolloHttpLink = ({
   const sseLink = new SSELink({
     url,
     singleConnection: true,
+    lazy: false, // ? prevents multiple connections from reconnecting simultaneously
     headers: async () => {
       const headers = await requestHandler.authorize(
         ctxHeaders?.(context) ?? {},
