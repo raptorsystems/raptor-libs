@@ -53,8 +53,16 @@ export const createSSELink: CreateApolloHttpLink = ({
       )
       return { ...headers }
     },
-    onMessage: (message) => {
-      if (context.isDev) console.log(message.event, message.data)
+    on: {
+      connecting: (reconnecting) => {
+        if (context.isDev) console.log('SSE connecting', { reconnecting })
+      },
+      connected: (reconnecting) => {
+        if (context.isDev) console.log('SSE connected', { reconnecting })
+      },
+      message: (message) => {
+        if (context.isDev) console.log('SSE message', message)
+      },
     },
     retryAttempts: Infinity,
   })
