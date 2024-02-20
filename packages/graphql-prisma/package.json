@@ -11,6 +11,6 @@
     "./src/types": "./src/types.ts"
   },
   "dependencies": {
-    "@prisma/client": "^5.9.1"
+    "@prisma/client": "^5.10.1"
   }
 }
