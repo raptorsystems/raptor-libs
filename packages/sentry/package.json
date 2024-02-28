@@ -8,9 +8,9 @@
   "main": "src",
   "exports": "./src/index.ts",
   "dependencies": {
-    "@sentry/integrations": "^7.102.1"
+    "@sentry/integrations": "^7.103.0"
   },
   "devDependencies": {
-    "@sentry/types": "^7.102.1"
+    "@sentry/types": "^7.103.0"
   }
 }
