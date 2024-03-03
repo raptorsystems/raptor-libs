@@ -1,11 +1,11 @@
-import * as FullStory from '@fullstory/browser'
+import { FullStory, init } from '@fullstory/browser'
 import { Plugin } from '@nuxt/types'
 
 export const fullStoryPlugin: Plugin = ({ $config, isDev }, inject) => {
   const orgId = $config.fullStoryOrgId as string
   if (!orgId) throw new Error('Missing config: `fullStoryOrgId`')
 
-  FullStory.init({ orgId, devMode: isDev })
+  init({ orgId, devMode: isDev })
 
   inject('fullStory', FullStory)
 }
