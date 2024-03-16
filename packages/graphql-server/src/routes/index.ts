@@ -1,1 +1,4 @@
-export { graphqlYogaAuth, graphqlYogaPublic } from './graphql-yoga/index.ts'
+export {
+  withGraphqlYogaAuth,
+  withGraphqlYogaPublic,
+} from './graphql-yoga/index.ts'

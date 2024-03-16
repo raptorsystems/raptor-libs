@@ -28,7 +28,7 @@ type Options<Context> = Omit<
   contextFactory: (
     serverContext: YogaInitialContext & FastifyServerContext,
   ) => Context
-  subscriptionsPartialContextFactory?: (
+  subscriptionsContextFactory?: (
     options: ContextFactoryOptions,
   ) => Partial<Context>
 }
@@ -58,9 +58,8 @@ export const useYogaFastifyServer = <Context extends BaseContext>(
       useGraphQLSSE({
         endpoint: '/stream',
       }),
-      useExtendContextValuePerExecuteSubscriptionEvent((opts) => ({
-        contextPartial:
-          options.subscriptionsPartialContextFactory?.(opts) ?? {},
+      useExtendContextValuePerExecuteSubscriptionEvent<Context>((opts) => ({
+        contextPartial: options.subscriptionsContextFactory?.(opts) ?? {},
       })),
       ...(options.plugins as [Plugin<Context>]),
     ],
