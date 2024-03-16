@@ -31,6 +31,8 @@ type Options<Context> = Omit<
   subscriptionsContextFactory?: (
     options: ContextFactoryOptions,
   ) => Partial<Context>
+  disposeContext?: (context: Context) => Promise<void>
+  disposeSubscriptionsContext?: (context: Partial<Context>) => Promise<void>
 }
 
 export const useYogaFastifyServer = <Context extends BaseContext>(
@@ -54,12 +56,21 @@ export const useYogaFastifyServer = <Context extends BaseContext>(
         onContextBuilding({ context }) {
           setContext(context)
         },
+        onExecute: options.disposeContext
+          ? ({ args: { contextValue } }) => ({
+              onExecuteDone: () => options.disposeContext?.(contextValue),
+            })
+          : undefined,
       } satisfies Plugin<Context>,
       useGraphQLSSE({
         endpoint: '/stream',
       }),
       useExtendContextValuePerExecuteSubscriptionEvent<Context>((opts) => ({
         contextPartial: options.subscriptionsContextFactory?.(opts) ?? {},
+        onEnd: () =>
+          void options.disposeSubscriptionsContext?.(
+            opts.args.contextValue as Partial<Context>,
+          ),
       })),
       ...(options.plugins as [Plugin<Context>]),
     ],
