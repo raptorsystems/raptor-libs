@@ -14,8 +14,6 @@ export const withGraphqlYogaAuth =
     graphiql?: boolean
     contextFactory: AuthContextFactory<Context>
     subscriptionsContextFactory?: PartialContextFactory<Context>
-    disposeContext?: (context: Context) => Promise<void>
-    disposeSubscriptionsContext?: (context: Partial<Context>) => Promise<void>
   }> =>
   (instance, { contextFactory, ...options }, done) => {
     instance.addHook('preValidation', async (req) => {
