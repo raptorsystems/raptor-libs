@@ -1,7 +1,7 @@
 import { getAsyncStoreInstance } from '@raptor/graphql-api'
-import { AsyncLocalStorage, AsyncResource } from 'async_hooks'
 import type { FastifyPluginCallback } from 'fastify'
 import fp from 'fastify-plugin'
+import { AsyncLocalStorage, AsyncResource } from 'node:async_hooks'
 
 type GetAsyncStore<T> = () => AsyncLocalStorage<T>
 type GetStore<T> = () => T
@@ -12,18 +12,17 @@ export interface AsyncContextOptions<T> {
   asyncResourceKey: string
 }
 
-const requestContext =
-  <T>({
-    getAsyncStore,
-    getStore,
-    asyncResourceKey,
-  }: AsyncContextOptions<T>): FastifyPluginCallback =>
-  (instance, _opts, done) => {
-    const asyncResourceSymbol = Symbol(asyncResourceKey)
-
+const requestContext = <T>({
+  getAsyncStore,
+  getStore,
+  asyncResourceKey,
+}: AsyncContextOptions<T>): FastifyPluginCallback => {
+  const asyncResourceSymbol = Symbol(asyncResourceKey)
+  return (instance, _opts, done) => {
     // Setup request-scoped context, based on Async hooks
     // ref: https://github.com/fastify/fastify-request-context
     void instance.addHook('onRequest', (req, _res, done) => {
+      console.count('onRequest')
       getAsyncStore().run(getStore(), () => {
         const asyncResource = new AsyncResource(asyncResourceKey)
         req[asyncResourceSymbol] = asyncResource
@@ -38,6 +37,7 @@ const requestContext =
 
     done()
   }
+}
 
 export const apiRequestContextPlugin = fp(
   requestContext({
