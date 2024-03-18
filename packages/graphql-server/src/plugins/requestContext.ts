@@ -22,7 +22,6 @@ const requestContext = <T>({
     // Setup request-scoped context, based on Async hooks
     // ref: https://github.com/fastify/fastify-request-context
     void instance.addHook('onRequest', (req, _res, done) => {
-      console.count('onRequest')
       getAsyncStore().run(getStore(), () => {
         const asyncResource = new AsyncResource(asyncResourceKey)
         req[asyncResourceSymbol] = asyncResource
