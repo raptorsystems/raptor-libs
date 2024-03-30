@@ -15,7 +15,7 @@ export type LevelWithSilent = P.LevelWithSilent
 export type LoggerOptions = P.LoggerOptions
 export type LogLevel = 'info' | 'query' | 'warn' | 'error'
 
-type LogDefinition = {
+export type LogDefinition = {
   level: LogLevel
   emit: 'stdout' | 'event'
 }
@@ -150,10 +150,10 @@ export const logLevel: LevelWithSilent | string = (() => {
  *
  * @see {@link https://github.com/pinojs/pino/blob/master/docs/api.md}
  */
-export const defaultLoggerOptions: LoggerOptions = {
+export const defaultLoggerOptions = {
   level: logLevel,
   redact: redactionsList,
-}
+} satisfies LoggerOptions
 
 /**
  * CreateLoggerOptions defines custom logger options that extend those available in LoggerOptions
@@ -202,11 +202,11 @@ export const createLogger = ({
 
   if (showConfig) {
     console.log('Logger Configuration')
-    console.log(`isProduction:`, isProduction)
-    console.log(`isDevelopment:`, isDevelopment)
-    console.log(`isTest:`, isTest)
-    console.log(`isFile:`, isFile)
-    console.log(`isStream:`, isStream)
+    console.log(`isProduction: ${isProduction}`)
+    console.log(`isDevelopment: ${isDevelopment}`)
+    console.log(`isTest: ${isTest}`)
+    console.log(`isFile: ${isFile}`)
+    console.log(`isStream: ${isStream}`)
     console.log(`logLevel: ${logLevel}`)
     console.log(`options: ${JSON.stringify(options, null, 2)}`)
     console.log(`destination: ${String(destination)}`)
@@ -229,22 +229,4 @@ export const createLogger = ({
 
     return pino(options, stream as DestinationStream)
   }
-}
-
-/**
- * Determines the type and level of logging.
- *
- * @see {@link https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#log}
- */
-export const defaultLogLevels: LogLevel[] = ['info', 'warn', 'error']
-
-/**
- * Generates the Prisma Log Definitions for the Prisma Client to emit
- *
- * @return Prisma.LogDefinition[]
- */
-export const emitLogLevels = (setLogLevels: LogLevel[]): LogDefinition[] => {
-  return setLogLevels?.map((level) => {
-    return { emit: 'event', level } as LogDefinition
-  })
 }

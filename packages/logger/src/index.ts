@@ -1,5 +1,7 @@
 import { createLogger, isDevelopment } from './logger.ts'
 
+export { type LogDefinition, type LogLevel, type Logger } from './logger.ts'
+
 export const logger = createLogger({
   options: isDevelopment
     ? {
