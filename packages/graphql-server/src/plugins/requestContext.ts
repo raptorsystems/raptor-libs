@@ -18,11 +18,12 @@ const requestContext = <T>({
   asyncResourceKey,
 }: AsyncContextOptions<T>): FastifyPluginCallback => {
   const asyncResourceSymbol = Symbol(asyncResourceKey)
+  const asyncStore = getAsyncStore()
   return (instance, _opts, done) => {
     // Setup request-scoped context, based on Async hooks
     // ref: https://github.com/fastify/fastify-request-context
     void instance.addHook('onRequest', (req, _res, done) => {
-      getAsyncStore().run(getStore(), () => {
+      asyncStore.run(getStore(), () => {
         const asyncResource = new AsyncResource(asyncResourceKey)
         req[asyncResourceSymbol] = asyncResource
         asyncResource.runInAsyncScope(done, req.raw)
