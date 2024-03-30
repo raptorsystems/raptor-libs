@@ -13,7 +13,7 @@ export const logger = createLogger({
             levelFirst: true,
             messageFormat: false,
             translateTime: true,
-            singleLine: true,
+            singleLine: false,
           },
         },
       }
