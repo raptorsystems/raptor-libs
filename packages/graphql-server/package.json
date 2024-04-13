@@ -9,10 +9,10 @@
   "exports": "./src/index.ts",
   "dependencies": {
     "@envelop/execute-subscription-event": "^5.0.0",
-    "@envelop/sentry": "^8.0.0",
+    "@envelop/sentry": "^9.0.0",
     "@graphql-yoga/plugin-graphql-sse": "^3.3.0",
     "@raptor/graphql-api": "workspace:*",
-    "@sentry/node": "^7.109.0",
+    "@sentry/node": "^7.110.0",
     "fastify": "^4.26.2",
     "fastify-plugin": "^4.5.1",
     "graphql": "^16.8.1",
