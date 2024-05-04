@@ -12,7 +12,7 @@
     "@envelop/sentry": "^9.0.0",
     "@graphql-yoga/plugin-graphql-sse": "^3.3.0",
     "@raptor/graphql-api": "workspace:*",
-    "@sentry/node": "^7.112.2",
+    "@sentry/node": "^7.113.0",
     "fastify": "^4.26.2",
     "fastify-plugin": "^4.5.1",
     "graphql": "^16.8.1",
