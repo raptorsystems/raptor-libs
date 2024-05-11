@@ -10,7 +10,7 @@
     "nuxt.js"
   ],
   "devDependencies": {
-    "@nuxt/eslint-config": "^0.3.10",
+    "@nuxt/eslint-config": "^0.3.12",
     "@raptor/eslint-config": "workspace:*",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
