@@ -9,6 +9,10 @@
     "type-checking.js",
     "nuxt.js"
   ],
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.3.13",
     "@typescript-eslint/eslint-plugin": "^7.9.0",

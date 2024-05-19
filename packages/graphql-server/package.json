@@ -7,6 +7,11 @@
   "type": "module",
   "exports": "./src/index.ts",
   "main": "src",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "typecheck": "tsc --noEmit --skipLibCheck"
+  },
   "dependencies": {
     "@envelop/execute-subscription-event": "^5.0.0",
     "@envelop/sentry": "^9.0.0",

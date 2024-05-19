@@ -10,6 +10,11 @@
     "./plugins/*": "./src/plugins/*.ts"
   },
   "main": "src",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "typecheck": "tsc --noEmit --skipLibCheck"
+  },
   "dependencies": {
     "@fullstory/browser": "^2.0.4",
     "@nuxtjs/auth-next": "5.0.0-1667386184.dfbbb54",

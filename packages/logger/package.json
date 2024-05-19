@@ -7,6 +7,11 @@
   "type": "module",
   "exports": "./src/index.ts",
   "main": "src",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "typecheck": "tsc --noEmit --skipLibCheck"
+  },
   "dependencies": {
     "pino": "^8.21.0",
     "pino-pretty": "^11.0.0"
