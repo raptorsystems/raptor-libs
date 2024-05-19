@@ -1,4 +1,0 @@
-{
-  "extends": "@raptor/tsconfig/node.json",
-  "include": ["src", ".eslintrc.cjs"]
-}
