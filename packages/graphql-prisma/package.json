@@ -10,6 +10,11 @@
     "./types": "./src/types.ts"
   },
   "main": "src",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "typecheck": "tsc --noEmit --skipLibCheck"
+  },
   "dependencies": {
     "@prisma/client": "^5.14.0"
   }

@@ -11,6 +11,11 @@
     "./modules/*": "./src/modules/*.ts"
   },
   "main": "src",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "typecheck": "tsc --noEmit --skipLibCheck"
+  },
   "dependencies": {
     "@raptor/helpscout-beacon": "workspace:*",
     "vuex": "^3.6.2"
