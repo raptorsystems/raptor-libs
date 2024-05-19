@@ -5,8 +5,8 @@
     "email": "raptor@raptorsystems.cl"
   },
   "type": "module",
-  "main": "src",
   "exports": "./src/index.ts",
+  "main": "src",
   "dependencies": {
     "@envelop/execute-subscription-event": "^5.0.0",
     "@envelop/sentry": "^9.0.0",

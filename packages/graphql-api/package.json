@@ -5,11 +5,11 @@
     "email": "raptor@raptorsystems.cl"
   },
   "type": "module",
-  "main": "src",
   "exports": {
     ".": "./src/index.ts",
     "./types": "./src/types.ts"
   },
+  "main": "src",
   "dependencies": {
     "@sentry/node": "^7.116.0",
     "graphql": "^16.8.1",

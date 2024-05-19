@@ -4,15 +4,15 @@
     "name": "Raptor Systems SpA",
     "email": "raptor@raptorsystems.cl"
   },
+  "type": "module",
   "workspaces": [
     "packages/*"
   ],
-  "type": "module",
-  "engines": {
-    "node": "^16"
-  },
   "devDependencies": {
     "@raptor/eslint-config": "workspace:*"
   },
-  "packageManager": "yarn@4.0.1"
+  "packageManager": "yarn@4.0.1",
+  "engines": {
+    "node": "^16"
+  }
 }

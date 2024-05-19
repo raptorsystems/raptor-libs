@@ -5,8 +5,8 @@
     "email": "raptor@raptorsystems.cl"
   },
   "type": "module",
-  "main": "src",
   "exports": "./src/index.ts",
+  "main": "src",
   "dependencies": {
     "@sentry/integrations": "^7.116.0"
   },

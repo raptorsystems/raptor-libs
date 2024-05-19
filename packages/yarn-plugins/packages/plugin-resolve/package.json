@@ -5,8 +5,8 @@
     "email": "raptor@raptorsystems.cl"
   },
   "type": "module",
-  "main": "src",
   "exports": "./src/index.ts",
+  "main": "src",
   "scripts": {
     "build": "builder build plugin && yarn plugin import ./bundles/@yarnpkg/plugin-resolve.js"
   },
