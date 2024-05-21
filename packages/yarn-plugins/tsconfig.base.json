@@ -1,3 +1,0 @@
-{
-  "extends": "@raptor/tsconfig/node.json"
-}
