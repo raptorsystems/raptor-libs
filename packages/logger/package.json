@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
-    "pino": "^9.1.0",
-    "pino-pretty": "^11.1.0"
+    "pino": "^9.2.0",
+    "pino-pretty": "^11.2.1"
   }
 }
