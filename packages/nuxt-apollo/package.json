@@ -13,12 +13,12 @@
     "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
-    "@apollo/client": "^3.10.5",
+    "@apollo/client": "^3.11.8",
     "@lifeomic/axios-fetch": "^3.1.0",
     "@nuxtjs/auth-next": "5.0.0-1667386184.dfbbb54",
     "@raptor/utils": "workspace:*",
     "axios": "0.27.2",
-    "graphql": "^15.8.0",
+    "graphql": "^15.9.0",
     "graphql-sse": "^2.5.3",
     "graphql-tag": "^2.12.6",
     "vue-apollo": "^3.1.2"

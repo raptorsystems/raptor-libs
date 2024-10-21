@@ -15,19 +15,19 @@
   "dependencies": {
     "@envelop/execute-subscription-event": "^5.0.0",
     "@envelop/sentry": "^9.0.0",
-    "@graphql-yoga/plugin-graphql-sse": "^3.4.0",
+    "@graphql-yoga/plugin-graphql-sse": "^3.7.0",
     "@raptor/graphql-api": "workspace:*",
-    "@sentry/node": "^7.116.0",
-    "fastify": "^4.28.0",
+    "@sentry/node": "^7.119.2",
+    "fastify": "^4.28.1",
     "fastify-plugin": "^4.5.1",
-    "graphql": "^16.8.1",
-    "graphql-yoga": "^5.4.0",
+    "graphql": "^16.9.0",
+    "graphql-yoga": "^5.7.0",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
     "jwks-rsa": "^3.1.0"
   },
   "devDependencies": {
     "@types/http-errors": "^2.0.4",
-    "@types/jsonwebtoken": "^9.0.6"
+    "@types/jsonwebtoken": "^9.0.7"
   }
 }

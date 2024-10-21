@@ -13,9 +13,9 @@
     "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
-    "@sentry/integrations": "^7.116.0"
+    "@sentry/integrations": "^7.119.2"
   },
   "devDependencies": {
-    "@sentry/types": "^7.116.0"
+    "@sentry/types": "^7.119.2"
   }
 }

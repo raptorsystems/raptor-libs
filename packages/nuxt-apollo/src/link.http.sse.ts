@@ -26,6 +26,7 @@ class SSELink extends ApolloLink {
       this.client.subscribe<FetchResult>(
         { ...operation, query: print(operation.query) },
         {
+          // @ts-expect-error, bad type on graphql-sse https://github.com/enisdenjo/graphql-sse/issues/108#issuecomment-2413586689
           next: sink.next.bind(sink),
           complete: sink.complete.bind(sink),
           error: sink.error.bind(sink),
