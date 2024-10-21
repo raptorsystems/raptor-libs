@@ -1,8 +1,8 @@
-import { YogaInitialContext } from 'graphql-yoga'
-import { SentryService } from '../services/sentry.service.ts'
-import { UserService } from '../services/user.service.ts'
-import { UserHeaders, UserPayload } from '../types.ts'
-import { GlobalContext } from './context.ts'
+import type { YogaInitialContext } from 'graphql-yoga'
+import type { SentryService } from '../services/sentry.service.ts'
+import type { UserService } from '../services/user.service.ts'
+import type { UserHeaders, UserPayload } from '../types.ts'
+import type { GlobalContext } from './context.ts'
 
 import './global.api-auto-import.ts'
 

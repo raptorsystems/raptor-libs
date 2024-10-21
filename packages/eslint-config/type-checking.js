@@ -13,5 +13,9 @@ module.exports = {
       'error',
       { ignorePrimitives: { boolean: true, string: true } },
     ],
+    '@typescript-eslint/consistent-type-imports': [
+      'error',
+      { fixStyle: 'inline-type-imports' },
+    ],
   },
 }

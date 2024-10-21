@@ -1,7 +1,8 @@
 import { getAsyncStoreInstance } from '@raptor/graphql-api'
 import type { FastifyPluginCallback } from 'fastify'
 import fp from 'fastify-plugin'
-import { AsyncLocalStorage, AsyncResource } from 'node:async_hooks'
+import type { AsyncLocalStorage } from 'node:async_hooks'
+import { AsyncResource } from 'node:async_hooks'
 
 type GetAsyncStore<T> = () => AsyncLocalStorage<T>
 type GetStore<T> = () => T

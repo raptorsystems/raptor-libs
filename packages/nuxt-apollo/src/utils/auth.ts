@@ -1,5 +1,5 @@
 import type { Context } from '@nuxt/types'
-import { Oauth2Scheme } from '@nuxtjs/auth-next'
+import type { Oauth2Scheme } from '@nuxtjs/auth-next'
 
 // Ref: https://github.com/nuxt-community/auth-module/blob/75c20e64cc2bb8d4db7d7fc772432132a1d9e417/src/inc/request-handler.ts
 export class RequestHandler<

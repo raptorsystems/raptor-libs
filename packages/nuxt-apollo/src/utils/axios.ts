@@ -3,7 +3,7 @@ import {
   createFetchHeaders,
   getUrl,
 } from '@lifeomic/axios-fetch/src/typeUtils'
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { AxiosRequestConfig, AxiosResponse, AxiosStatic } from 'axios'
 import axios from 'axios'
 
 export type AxiosTransformer = (
@@ -15,7 +15,7 @@ export type AxiosTransformer = (
 // Ref: https://github.com/lifeomic/axios-fetch
 export const axiosFetch =
   (
-    instance: () => AxiosInstance,
+    instance: () => AxiosStatic,
     transformer: AxiosTransformer = (config) => config,
   ): WindowOrWorkerGlobalScope['fetch'] =>
   async (input, init) => {

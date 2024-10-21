@@ -1,8 +1,9 @@
+import type {
+  FetchResult,
+  Operation} from '@apollo/client/core';
 import {
   ApolloLink,
-  FetchResult,
-  Observable,
-  Operation,
+  Observable
 } from '@apollo/client/core'
 import { print } from 'graphql'
 import type { Client, ClientOptions } from 'graphql-sse'
@@ -21,7 +22,7 @@ class SSELink extends ApolloLink {
     this.client = createClient(options)
   }
 
-  public request = (operation: Operation) =>
+  public override request = (operation: Operation) =>
     new Observable<FetchResult>((sink) =>
       this.client.subscribe<FetchResult>(
         { ...operation, query: print(operation.query) },

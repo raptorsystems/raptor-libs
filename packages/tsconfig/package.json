@@ -10,5 +10,8 @@
     "node.json",
     "browser.json",
     "nuxt.json"
-  ]
+  ],
+  "devDependencies": {
+    "@total-typescript/tsconfig": "^1.0.4"
+  }
 }

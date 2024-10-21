@@ -1,5 +1,5 @@
 import {
-  ContextFactoryOptions,
+  type ContextFactoryOptions,
   useExtendContextValuePerExecuteSubscriptionEvent,
 } from '@envelop/execute-subscription-event'
 import { useGraphQLSSE } from '@graphql-yoga/plugin-graphql-sse'
@@ -10,9 +10,9 @@ import type { GraphQLSchema } from 'graphql'
 
 import {
   createYoga,
-  Plugin,
-  YogaInitialContext,
-  YogaServerOptions,
+  type Plugin,
+  type YogaInitialContext,
+  type YogaServerOptions,
 } from 'graphql-yoga'
 
 type FastifyServerContext = {

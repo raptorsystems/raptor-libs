@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloClientOptions } from '@apollo/client/core'
+import { ApolloClient, type ApolloClientOptions } from '@apollo/client/core'
 import type { Plugin } from '@nuxt/types'
 import Vue from 'vue'
 import VueApollo from 'vue-apollo'

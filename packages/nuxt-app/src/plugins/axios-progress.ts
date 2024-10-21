@@ -1,5 +1,5 @@
 import { Plugin } from '@nuxt/types'
-import Axios from 'axios'
+import axios from 'axios'
 
 /**
  * Overrides `@nuxtjs/axios` default progress implementation
@@ -44,7 +44,7 @@ export const axiosProgressPlugin: Plugin = ({ $axios }) => {
   $axios.onError((error) => {
     currentRequests--
 
-    if (Axios.isCancel(error)) {
+    if (axios.isCancel(error)) {
       if (currentRequests <= 0) {
         currentRequests = 0
         $loading().finish?.()
