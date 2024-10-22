@@ -21,6 +21,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-vuetify": "^1.1.0",
     "prettier": "^3.3.3",
+    "typescript": "~5.4.5",
     "vue": "^2.7.16",
     "vuetify": "^2.7.2"
   }
