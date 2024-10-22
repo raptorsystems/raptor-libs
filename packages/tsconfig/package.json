@@ -6,7 +6,6 @@
   },
   "main": "index.ts",
   "files": [
-    "base.json",
     "node.json",
     "browser.json",
     "nuxt.json"

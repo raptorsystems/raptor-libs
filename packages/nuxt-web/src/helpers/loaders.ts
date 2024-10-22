@@ -47,7 +47,7 @@ export class OnDemandLoader {
       const script = document.createElement('script')
       script.src = this.src
       script.onload = () => this._invokeCallbacks()
-      document.getElementsByTagName('head')[0].appendChild(script)
+      document.getElementsByTagName('head')[0]?.appendChild(script)
 
       script.onload = () => {
         this._invokeCallbacks()
@@ -62,7 +62,7 @@ export class OnDemandLoader {
       const script = document.createElement('link')
       script.rel = this.src
       script.onload = () => this._invokeCallbacks()
-      document.getElementsByTagName('head')[0].appendChild(script)
+      document.getElementsByTagName('head')[0]?.appendChild(script)
 
       script.onload = () => {
         this._invokeCallbacks()

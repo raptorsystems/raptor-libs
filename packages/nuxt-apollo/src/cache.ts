@@ -72,7 +72,8 @@ export const skipTakeMerge =
         // Assume an offset of 0 if args.offset omitted.
         const { skip = 0 } = args
         for (let i = 0; i < incoming.length; ++i) {
-          merged[skip + i] = incoming[i]
+          const item = incoming[i]
+          if (item) merged[skip + i] = item
         }
       } else {
         // It's unusual (probably a mistake) for a paginated field not

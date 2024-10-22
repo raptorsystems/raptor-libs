@@ -1,10 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Node",
-  "extends": "@total-typescript/tsconfig/bundler/no-dom/library-monorepo",
+  "extends": "@total-typescript/tsconfig/bundler/no-dom",
   "compilerOptions": {
-    "lib": ["ES2023"],
-    "target": "ES2023",
+    "module": "NodeNext",
+    "lib": ["ESNext"],
+    "target": "ESNext",
     "noImplicitAny": false,
     "allowImportingTsExtensions": true
   }

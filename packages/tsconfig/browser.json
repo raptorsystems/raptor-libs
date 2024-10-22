@@ -1,11 +1,10 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Browser",
-  "extends": "./base.json",
+  "extends": "@total-typescript/tsconfig/bundler/dom",
   "compilerOptions": {
-    "module": "ESNext",
-    "target": "ESNext",
-    "moduleResolution": "Node",
-    "lib": ["ESNext", "DOM"]
+    "noImplicitAny": false,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": false
   }
 }
