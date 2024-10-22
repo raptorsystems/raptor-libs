@@ -24,7 +24,7 @@
     "axios": "0.27.2"
   },
   "devDependencies": {
-    "@nuxt/types": "^2.17.4",
+    "@nuxt/types": "^2.18.1",
     "@raptor/eslint-config": "workspace:*",
     "@sentry/types": "^7.119.2"
   }
