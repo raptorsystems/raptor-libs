@@ -12,10 +12,7 @@
     "lint:fix": "eslint --fix .",
     "typecheck": "tsc --noEmit --skipLibCheck"
   },
-  "dependencies": {
-    "@sentry/integrations": "^7.119.2"
-  },
   "devDependencies": {
-    "@sentry/types": "^7.119.2"
+    "@sentry/types": "^8.35.0"
   }
 }
