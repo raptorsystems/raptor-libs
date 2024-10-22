@@ -24,6 +24,6 @@
   "devDependencies": {
     "@nuxt/types": "^2.18.1",
     "@raptor/eslint-config": "workspace:*",
-    "@types/workbox-window": "^5.0.0"
+    "workbox-window": "^5.1.4"
   }
 }
