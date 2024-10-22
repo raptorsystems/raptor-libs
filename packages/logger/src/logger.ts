@@ -121,7 +121,7 @@ export const logLevel: LevelWithSilent | string = (() => {
   } else if (isTest) {
     return 'silent'
   } else {
-    return 'trace'
+    return 'info'
   }
 })()
 
