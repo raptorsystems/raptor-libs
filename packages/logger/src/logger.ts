@@ -88,6 +88,7 @@ export const redactionsList: string[] = [
   'apikey',
   'credentials',
   'key',
+  '["api-key"]',
 ]
 
 /**
