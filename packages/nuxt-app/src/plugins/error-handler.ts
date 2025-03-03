@@ -17,6 +17,11 @@ interface ErrorHandler {
   is404: (error: NullableError) => boolean
   hasNetworkError: (error: NullableError) => boolean
   hasGraphQLError: (error: NullableError) => boolean
+  getMessage: (error: NullableError) => string | undefined
+  getMessageParts: (error: NullableError) => {
+    code: string | undefined
+    details: string | undefined
+  }
   capture: (
     error: NullableError,
     captureContext?: CaptureContext,
@@ -82,6 +87,32 @@ export const errorHandlerPlugin: Plugin = ({ $sentry, isDev }, inject) => {
     hasNetworkError: (error) => Boolean(error?.networkError),
 
     hasGraphQLError: (error) => Boolean(error?.graphQLErrors?.length),
+
+    getMessage: (error) => {
+      if (!error) return
+      return error.message || error.toString()
+    },
+
+    getMessageParts(error) {
+      const message = this.getMessage(error)
+      if (!message) return { code: undefined, details: undefined }
+
+      const colonIndex = message.indexOf(':')
+
+      if (colonIndex !== -1) {
+        const potentialCode = message.slice(0, colonIndex).trim()
+        const details = message.slice(colonIndex + 1).trim()
+        // check if format is like "error_code: details"
+        if (/^[a-z_]+$/.test(potentialCode))
+          return { code: potentialCode, details: details }
+      }
+
+      const trimmed = message.trim()
+      if (/^[a-z_]+$/.test(trimmed))
+        return { code: trimmed, details: undefined }
+
+      return { code: undefined, details: trimmed }
+    },
 
     capture(error, captureContext) {
       if (isDev) console.error(error, captureContext)
