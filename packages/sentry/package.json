@@ -13,6 +13,6 @@
     "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "devDependencies": {
-    "@sentry/types": "^8.35.0"
+    "@sentry/types": "^8.55.0"
   }
 }

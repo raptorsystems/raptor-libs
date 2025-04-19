@@ -16,12 +16,12 @@
     "typecheck": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
-    "@sentry/node": "^8.35.0",
+    "@sentry/node": "^8.55.0",
     "graphql": "^16.10.0",
     "graphql-yoga": "^5.13.4"
   },
   "devDependencies": {
-    "@sentry/types": "^8.35.0",
+    "@sentry/types": "^8.55.0",
     "prettier": "^3.5.3"
   }
 }
