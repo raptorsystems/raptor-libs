@@ -18,7 +18,7 @@
     "@graphql-yoga/plugin-graphql-sse": "^3.7.0",
     "@raptor/graphql-api": "workspace:*",
     "@sentry/node": "^8.35.0",
-    "fastify": "^5.0.0",
+    "fastify": "^5.3.2",
     "fastify-plugin": "^5.0.1",
     "graphql": "^16.9.0",
     "graphql-yoga": "^5.7.0",
