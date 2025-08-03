@@ -8,7 +8,7 @@
   "devDependencies": {
     "@raptor/eslint-config": "workspace:*"
   },
-  "packageManager": "pnpm@9.15.9",
+  "packageManager": "pnpm@10.8.0",
   "engines": {
     "node": "^20"
   }
