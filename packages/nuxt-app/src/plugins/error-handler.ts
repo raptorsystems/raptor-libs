@@ -4,6 +4,7 @@ import type { CaptureContext } from '@sentry/types'
 
 type NullableError = NuxtError | ApolloError | null | undefined
 type ErrorCode = string | number
+type ApolloGraphQLError = NonNullable<ApolloError['graphQLErrors']>[number]
 
 interface ErrorHandler {
   hasCode: (error: NullableError, code: ErrorCode) => boolean
@@ -60,7 +61,35 @@ const hasCodeRegex = (error: NullableError, pattern: string | RegExp) =>
     value ? new RegExp(pattern).test(value.toString()) : false,
   )
 
-export const errorHandlerPlugin: Plugin = ({ $sentry, isDev }, inject) => {
+const summarizeGraphQLErrors = (
+  graphQLErrors: readonly ApolloGraphQLError[],
+) => {
+  const firstError = graphQLErrors.find(
+    (graphQLError) => !graphQLError.extensions?.reported,
+  )
+
+  const codeFor = (graphQLError: ApolloGraphQLError) =>
+    typeof graphQLError.extensions?.code === 'string'
+      ? graphQLError.extensions.code
+      : undefined
+
+  const pathFor = (graphQLError: ApolloGraphQLError) =>
+    graphQLError.path?.join(' > ')
+
+  return {
+    errorCount: graphQLErrors.length,
+    codes: [...new Set(graphQLErrors.map(codeFor).filter(Boolean))],
+    paths: [...new Set(graphQLErrors.map(pathFor).filter(Boolean))],
+    firstCode: firstError ? codeFor(firstError) : undefined,
+    firstMessage: firstError?.message,
+    firstPath: firstError ? pathFor(firstError) : undefined,
+  }
+}
+
+export const errorHandlerPlugin: Plugin = (
+  { $sentry, isDev, route },
+  inject,
+) => {
   const handler: ErrorHandler = {
     hasCode: hasCodeEquals,
 
@@ -119,12 +148,17 @@ export const errorHandlerPlugin: Plugin = ({ $sentry, isDev }, inject) => {
       if (!error || !$sentry) return
       // ignore expected errors
       if (this.isUnauthorized(error)) return
-      // capture graphQLErrors
-      if (error.graphQLErrors) {
-        for (const graphQLError of error.graphQLErrors) {
-          if (!graphQLError.extensions?.reported)
-            return $sentry.captureException(graphQLError, captureContext)
-        }
+      if (error.graphQLErrors?.length) {
+        const summary = summarizeGraphQLErrors(error.graphQLErrors)
+        $sentry.addBreadcrumb({
+          category: 'graphql',
+          message: 'GraphQL error response',
+          level: 'error',
+          data: {
+            route: route.fullPath,
+            ...summary,
+          },
+        })
       }
       // capture networkError
       if (error.networkError) {

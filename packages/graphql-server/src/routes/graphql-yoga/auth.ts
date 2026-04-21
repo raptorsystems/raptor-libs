@@ -6,6 +6,7 @@ import type {
 } from '@raptor/graphql-api'
 import type { FastifyPluginCallback } from 'fastify'
 import type { GraphQLSchema } from 'graphql'
+import { skipSentryGraphQLError } from './sentry.ts'
 import { useYogaFastifyServer } from './base.ts'
 
 export const withGraphqlYogaAuth =
@@ -40,6 +41,7 @@ export const withGraphqlYogaAuth =
             scope.setExtra('user', user.payload)
           },
           eventIdKey: null, // ! https://github.com/n1ru4l/envelop/issues/1394
+          skipError: skipSentryGraphQLError,
         }),
       ],
     })

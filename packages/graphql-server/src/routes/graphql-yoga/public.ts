@@ -6,6 +6,7 @@ import type {
 } from '@raptor/graphql-api'
 import type { FastifyPluginCallback } from 'fastify'
 import type { GraphQLSchema } from 'graphql'
+import { skipSentryGraphQLError } from './sentry.ts'
 import { useYogaFastifyServer } from './base.ts'
 
 export const withGraphqlYogaPublic =
@@ -21,6 +22,7 @@ export const withGraphqlYogaPublic =
       plugins: [
         useSentry({
           eventIdKey: null, // ! https://github.com/n1ru4l/envelop/issues/1394
+          skipError: skipSentryGraphQLError,
         }),
       ],
     })
